@@ -1,27 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { MagneticButton } from '@/components/animations/MagneticButton';
-import { EASE, DURATION, SPRING } from '@/lib/animations';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 export function CTA() {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
-
-  function handleQuickCapture(e: React.FormEvent) {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubmitted(true);
-    }
-  }
-
   return (
     <section className="py-24 md:py-32 relative" aria-labelledby="cta-heading">
       {/* Gradient background */}
@@ -50,111 +34,84 @@ export function CTA() {
             </p>
           </FadeIn>
 
-          {/* Primary CTAs */}
+          {/* Conversion Catalyst - Urgency + Social Proof */}
           <FadeIn delay={0.3}>
-            <div className="flex flex-wrap justify-center gap-4 mt-10" role="group" aria-label="Call to action">
+            <div className="mt-10 max-w-md mx-auto mb-6 p-4 rounded-xl bg-gradient-to-br from-accent/5 to-accent/10 border-l-4 border-accent">
+              <div className="flex items-center gap-2 text-sm text-foreground mb-2">
+                <svg width="8" height="8" className="text-accent animate-pulse">
+                  <circle cx="4" cy="4" r="4" fill="currentColor" />
+                </svg>
+                <span>
+                  <strong className="font-semibold">12 operations calls</strong> booked this week
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-foreground">
+                <svg width="16" height="16" viewBox="0 0 16 16" className="text-accent flex-shrink-0">
+                  <path
+                    d="M3 2h10a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeWidth="1.5"
+                  />
+                  <path d="M1 6h14M5 1v2M11 1v2" stroke="currentColor" strokeWidth="1.5" />
+                </svg>
+                <span>
+                  <strong className="font-semibold">3 slots left</strong> this week — Next available: Thu 2PM EST
+                </span>
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* Dual CTAs */}
+          <FadeIn delay={0.4}>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6" role="group" aria-label="Call to action">
               <MagneticButton>
-                <Button href="/demo" size="lg">
-                  Request a Demo
+                <Button href="/contact" size="lg">
+                  Book a 15-Minute Ops Call
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="ml-1" aria-hidden="true">
                     <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </Button>
               </MagneticButton>
               <MagneticButton>
-                <Button href="/playbook" variant="secondary" size="lg">
-                  Download AI Ops Playbook
+                <Button href="/contact" variant="secondary" size="lg">
+                  Get a Free Operations Assessment
                 </Button>
               </MagneticButton>
             </div>
           </FadeIn>
 
-          {/* Quick email capture */}
-          <FadeIn delay={0.4}>
-            <div className="mt-12 max-w-md mx-auto">
-              <AnimatePresence mode="wait">
-                {submitted ? (
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: DURATION.normal, ease: EASE.enter }}
-                    className="p-4 rounded-xl border border-accent/20 bg-accent/5"
-                    role="status"
-                    aria-live="polite"
-                  >
-                    <p className="text-sm text-accent font-medium flex items-center justify-center gap-2">
-                      <motion.svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{ delay: 0.2, type: 'spring', ...SPRING.bouncy }}
-                        aria-hidden="true"
-                      >
-                        <path d="M4 8l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </motion.svg>
-                      We&apos;ll be in touch within 24 hours.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="form"
-                    initial={{ opacity: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                  >
-                    <p className="text-xs text-muted mb-3">
-                      Or leave your email — we&apos;ll reach out with a custom operations assessment.
-                    </p>
-                    <form
-                      onSubmit={handleQuickCapture}
-                      className="flex gap-2"
-                      aria-label="Quick email capture"
-                    >
-                      <div className="relative flex-1">
-                        <input
-                          type="email"
-                          required
-                          placeholder="you@company.com"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          onFocus={() => setFocused(true)}
-                          onBlur={() => setFocused(false)}
-                          className="w-full px-4 py-3 rounded-full bg-surface border border-border text-foreground text-sm placeholder:text-muted/50 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
-                          aria-label="Email address"
-                        />
-                        {/* Focus glow ring */}
-                        {!prefersReducedMotion && (
-                          <motion.div
-                            className="absolute inset-0 rounded-full pointer-events-none"
-                            animate={{
-                              boxShadow: focused
-                                ? '0 0 0 3px rgba(20, 184, 166, 0.1), 0 0 20px rgba(20, 184, 166, 0.05)'
-                                : '0 0 0 0px transparent',
-                            }}
-                            transition={{ duration: 0.3 }}
-                          />
-                        )}
-                      </div>
-                      <motion.button
-                        type="submit"
-                        className="px-6 py-3 rounded-full bg-accent text-[#0a0a0a] text-sm font-medium hover:bg-accent-light transition-colors duration-200 flex-shrink-0 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none"
-                        whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
-                      >
-                        Get Assessment
-                      </motion.button>
-                    </form>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+          {/* Risk Reversal Guarantee */}
+          <FadeIn delay={0.5}>
+            <div className="mt-8 max-w-md mx-auto flex items-start gap-3 p-4 rounded-xl bg-surface/50 border border-border">
+              <svg width="20" height="20" viewBox="0 0 20 20" className="flex-shrink-0 mt-0.5 text-accent">
+                <path
+                  d="M10 1L3 4v6c0 5 3 8 7 9 4-1 7-4 7-9V4l-7-3z"
+                  fill="currentColor"
+                  opacity="0.1"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M7 10l2 2 4-4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <div className="text-left">
+                <p className="text-sm font-semibold text-foreground">Zero-Risk Guarantee</p>
+                <p className="text-xs text-muted mt-1">
+                  If we can&apos;t identify 3 actionable improvements in 15 minutes, we&apos;ll send you a $100 Amazon gift card. That&apos;s our promise.
+                </p>
+              </div>
             </div>
           </FadeIn>
 
           {/* Trust signal */}
-          <FadeIn delay={0.5}>
+          <FadeIn delay={0.6}>
             <p className="mt-8 text-xs text-muted/60">
               No pitch deck. No fluff. Just real operational infrastructure.
             </p>

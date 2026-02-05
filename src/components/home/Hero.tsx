@@ -168,50 +168,63 @@ export function Hero() {
               from startup to <span className="text-foreground font-medium">$2.5M ARR in 18 months</span>.
             </motion.p>
 
-            {/* CTAs */}
+            {/* Social proof logos */}
             <motion.div
               initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: DURATION.slow, delay: 0.9, ease: EASE.enter }}
+              className="mt-10"
+            >
+              <div className="flex flex-col items-start gap-4">
+                <p className="text-xs text-muted uppercase tracking-wider">
+                  Trusted by operations teams at:
+                </p>
+                <div className="flex flex-wrap items-center gap-8 md:gap-12">
+                  {['WALMART', 'APPLE', 'WELLS FARGO'].map((client) => (
+                    <div
+                      key={client}
+                      className="text-muted/40 font-semibold text-sm tracking-wider hover:text-muted/60 transition-colors"
+                    >
+                      {client}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: DURATION.slow, delay: 1.1, ease: EASE.enter }}
               className="flex flex-wrap gap-4 mt-10"
               role="group"
               aria-label="Get started"
             >
               <MagneticButton>
-                <Button href="/demo" size="lg">
-                  Request a Demo
+                <Button href="/contact" size="lg">
+                  Book a 15-Minute Ops Call
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="ml-1" aria-hidden="true">
                     <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </Button>
               </MagneticButton>
               <MagneticButton>
-                <Button href="/case-studies" variant="secondary" size="lg">
-                  See the Results
+                <Button href="/contact" variant="secondary" size="lg">
+                  Get a Free Operations Assessment
                 </Button>
               </MagneticButton>
             </motion.div>
 
-            {/* Founder trust signal */}
             <motion.div
-              initial={prefersReducedMotion ? {} : { opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: DURATION.slow, delay: 1.1, ease: EASE.enter }}
-              className="mt-12 flex items-center gap-4"
+              initial={prefersReducedMotion ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: DURATION.slow, delay: 1.3, ease: EASE.enter }}
+              className="mt-4"
             >
-              <motion.div
-                className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-sm font-semibold"
-                whileHover={prefersReducedMotion ? {} : { scale: 1.1, borderColor: 'rgba(20, 184, 166, 0.5)' }}
-                transition={{ type: 'spring', ...SPRING.snappy }}
-              >
-                V
-              </motion.div>
-              <div>
-                <p className="text-sm text-foreground font-medium">Built by V</p>
-                <p className="text-xs text-muted">
-                  7+ years building ops infrastructure across 3 continents
-                </p>
-              </div>
+              <p className="text-xs text-muted">
+                15 minutes. No pitch. Just a surgical audit of your operations and one clear next step.
+              </p>
             </motion.div>
 
             {/* Social proof stats — animated counters */}

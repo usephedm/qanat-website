@@ -117,6 +117,20 @@ export function Footer() {
           </nav>
         </div>
 
+        {/* Built by V section */}
+        <div className="divider mt-12" aria-hidden="true" />
+        <div className="mt-8 flex items-start gap-4 max-w-md">
+          <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-sm font-semibold flex-shrink-0">
+            V
+          </div>
+          <div>
+            <p className="text-sm text-foreground font-medium">Built by V</p>
+            <p className="text-xs text-muted mt-1 leading-relaxed">
+              7+ years building ops infrastructure across 3 continents. Led operations teams, scaled systems from zero, and built the infrastructure behind $18M+ in ARR.
+            </p>
+          </div>
+        </div>
+
         {/* Bottom */}
         <div className="divider mt-12" aria-hidden="true" />
         <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-4">
