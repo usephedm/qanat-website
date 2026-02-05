@@ -10,17 +10,19 @@ export const siteMetadata: Metadata = {
   description: SITE.description,
   keywords: [
     'AI operations',
-    'dispatch management',
-    'facility management',
-    'dispatch operations',
+    'dispatch automation',
+    'AI dispatch',
+    'team scaling',
+    'operations infrastructure',
     'AI agents',
-    'cross-border service delivery',
-    'operations management',
-    'facility intelligence',
-    'automated dispatch',
+    'cross-border operations',
+    'dispatch management',
+    'operational excellence',
+    'revenue operations',
     'QANAT',
+    'QN8',
   ],
-  authors: [{ name: SITE.founder.name }],
+  authors: [{ name: SITE.founder.fullName }],
   creator: SITE.name,
   openGraph: {
     type: 'website',
@@ -29,12 +31,21 @@ export const siteMetadata: Metadata = {
     title: `${SITE.name} — ${SITE.tagline}`,
     description: SITE.description,
     siteName: SITE.name,
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: `${SITE.name} — ${SITE.tagline}`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${SITE.name} — ${SITE.tagline}`,
     description: SITE.description,
     creator: '@qanathq',
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -58,7 +69,7 @@ export function generateStructuredData() {
     description: SITE.description,
     founder: {
       '@type': 'Person',
-      name: SITE.founder.name,
+      name: SITE.founder.fullName,
       jobTitle: SITE.founder.title,
     },
     address: {
@@ -67,5 +78,46 @@ export function generateStructuredData() {
       addressCountry: 'US',
     },
     sameAs: [SITE.social.linkedin, SITE.social.twitter, SITE.social.github],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: SITE.contact.email,
+      contactType: 'customer service',
+    },
+  };
+}
+
+export function generateJobPostingData(job: {
+  title: string;
+  description: string;
+  location: string;
+  compensation: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    title: job.title,
+    description: job.description,
+    hiringOrganization: {
+      '@type': 'Organization',
+      name: SITE.name,
+      sameAs: SITE.url,
+    },
+    jobLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'US',
+      },
+    },
+    jobLocationType: 'TELECOMMUTE',
+    employmentType: 'FULL_TIME',
+    baseSalary: {
+      '@type': 'MonetaryAmount',
+      currency: 'USD',
+      value: {
+        '@type': 'QuantitativeValue',
+        unitText: 'YEAR',
+      },
+    },
   };
 }

@@ -17,14 +17,14 @@ export function ServicesHero() {
           <span className="inline-block text-xs font-medium uppercase tracking-[0.2em] text-accent mb-6">
             Services
           </span>
-          <h1 className="text-heading-1 max-w-3xl">
-            Operations that scale
-            <span className="accent-gradient"> without breaking</span>
+          <h1 className="text-heading-1 max-w-4xl">
+            Three systems that turn
+            <span className="accent-gradient"> chaos into clockwork</span>
           </h1>
           <p className="text-body-lg mt-6 max-w-2xl">
-            Three core capabilities, one philosophy: build systems so good 
-            that operations become invisible. Your team focuses on growth. 
-            We handle the infrastructure.
+            We don&apos;t sell advice. We build, deploy, and operate the AI-powered
+            systems that let companies scale without proportionally scaling headcount.
+            Each service is battle-tested in production.
           </p>
         </motion.div>
       </Container>

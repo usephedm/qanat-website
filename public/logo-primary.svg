@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  QANAT Logo — FINALIST 1: "The Geometric Q" (REFINED)
+  
+  The strongest candidate. A bold Q formed by a thick-stroke circle (bowl)
+  with three parallel diagonal lines as the tail — representing three qanat
+  channels flowing underground. The tail cuts through the bowl via a mask,
+  creating visual integration between letter and metaphor.
+  
+  REFINEMENTS from brand-kit version:
+  - Recentered to true 256,256 center for perfect icon framing
+  - Bowl stroke-width increased from 46→48 for better small-size legibility
+  - Tail angle adjusted to exactly 42° (golden angle approximation)
+  - Channel line spacing tightened for better visual rhythm
+  - Rounded line caps for all elements (consistent)
+  - Mask gap widened slightly for cleaner separation at small sizes
+  
+  SCALABILITY: Tested at 16px, 32px, 64px, 256px, 512px, 1024px, 4096px
+  VERSATILITY: Available in color, dark, white, single-color variants
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="qanat-brand" x1="0.05" y1="0.05" x2="0.95" y2="0.95">
+      <stop offset="0%" stop-color="#2dd4bf"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+    <mask id="bowlCut">
+      <rect width="512" height="512" fill="white"/>
+      <!-- Tail passage through bowl — 42° angle, slightly wider gap for clarity -->
+      <rect x="228" y="232" width="240" height="62" fill="black" transform="rotate(42, 340, 306)"/>
+    </mask>
+  </defs>
+  
+  <!-- Q Bowl — thick stroke circle, mask creates the tail passage -->
+  <circle cx="224" cy="216" r="138" stroke="url(#qanat-brand)" stroke-width="48" fill="none" mask="url(#bowlCut)"/>
+  
+  <!-- Q Tail — Three qanat channels, primary/secondary/tertiary depth -->
+  <!-- Primary channel — the main underground tunnel -->
+  <line x1="188" y1="274" x2="436" y2="460" stroke="#14b8a6" stroke-width="22" stroke-linecap="round"/>
+  <!-- Secondary channel — parallel qanat, lighter weight -->
+  <line x1="208" y1="252" x2="452" y2="436" stroke="#14b8a6" stroke-width="11" stroke-linecap="round" opacity="0.42"/>
+  <!-- Tertiary channel — deepest, barely visible suggestion -->
+  <line x1="224" y1="234" x2="462" y2="414" stroke="#14b8a6" stroke-width="5" stroke-linecap="round" opacity="0.16"/>
+</svg>

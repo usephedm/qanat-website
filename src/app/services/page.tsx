@@ -7,7 +7,7 @@ import { SERVICES } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'AI-powered dispatch operations, intelligent automation, and facility management. QANAT builds the operational infrastructure modern businesses need.',
+    'AI-powered dispatch automation, intelligent operations, and team scaling. QANAT builds the operational infrastructure that took one client from zero to $2.5M ARR.',
 };
 
 export default function ServicesPage() {

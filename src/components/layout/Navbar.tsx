@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
-import { NAV_LINKS, SITE } from '@/lib/constants';
+import { LogoFull } from '@/components/ui/Logo';
+import { NAV_LINKS } from '@/lib/constants';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -16,10 +17,11 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [mobileOpen]);
 
   return (
@@ -37,10 +39,8 @@ export function Navbar() {
         <Container>
           <nav className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link href="/" className="relative z-50 flex items-center gap-2 group">
-              <span className="text-lg font-semibold tracking-[0.15em] text-foreground group-hover:text-accent transition-colors duration-200">
-                {SITE.name}
-              </span>
+            <Link href="/" className="relative z-50 group">
+              <LogoFull className="group-hover:[&_span]:text-accent transition-colors duration-200" />
             </Link>
 
             {/* Desktop Nav */}
@@ -55,10 +55,10 @@ export function Navbar() {
                 </Link>
               ))}
               <Link
-                href="/contact"
+                href="/demo"
                 className="ml-2 px-5 py-2.5 text-sm font-medium text-[#0a0a0a] bg-accent rounded-full hover:bg-accent-light transition-colors duration-200"
               >
-                Get in Touch
+                Request Demo
               </Link>
             </div>
 
@@ -112,17 +112,37 @@ export function Navbar() {
                   </Link>
                 </motion.div>
               ))}
+              {/* Additional mobile links */}
+              {[
+                { label: 'Pricing', href: '/pricing' },
+                { label: 'AI Ops Playbook', href: '/playbook' },
+              ].map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + i * 0.05, duration: 0.4 }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="text-xl text-muted hover:text-accent transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.4 }}
+                transition={{ delay: 0.5, duration: 0.4 }}
               >
                 <Link
-                  href="/contact"
+                  href="/demo"
                   onClick={() => setMobileOpen(false)}
                   className="mt-4 px-8 py-3 text-base font-medium text-[#0a0a0a] bg-accent rounded-full"
                 >
-                  Get in Touch
+                  Request Demo
                 </Link>
               </motion.div>
             </div>

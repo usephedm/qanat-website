@@ -7,7 +7,7 @@ import { CTA } from '@/components/home/CTA';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'QANAT builds invisible operational infrastructure — AI-driven systems that power businesses across borders. Founded by Yousof Al-Ali.',
+    'QANAT builds invisible operational infrastructure — AI-driven systems that power businesses across borders. Founded by V, an operations architect who scaled a startup from zero to $2.5M ARR.',
 };
 
 export default function AboutPage() {

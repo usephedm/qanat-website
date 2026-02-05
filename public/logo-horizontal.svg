@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- QANAT Logo — Horizontal Lockup (Icon + Wordmark) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 200" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="0.1" y1="0.1" x2="0.9" y2="0.9">
+      <stop offset="0%" stop-color="#2dd4bf"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+    <mask id="bowlMask">
+      <rect width="920" height="200" fill="white"/>
+      <rect x="70" y="78" width="90" height="22" fill="black" transform="rotate(42, 110, 108)"/>
+    </mask>
+  </defs>
+  
+  <!-- Icon (scaled to fit 200px height with padding) -->
+  <g transform="translate(20, 8) scale(0.36)">
+    <circle cx="226" cy="218" r="140" stroke="url(#g1)" stroke-width="46" fill="none" mask="url(#bowlMask)"/>
+    <line x1="192" y1="278" x2="440" y2="462" stroke="#14b8a6" stroke-width="22" stroke-linecap="round"/>
+    <line x1="210" y1="256" x2="454" y2="438" stroke="#14b8a6" stroke-width="12" stroke-linecap="round" opacity="0.45"/>
+    <line x1="226" y1="238" x2="464" y2="416" stroke="#14b8a6" stroke-width="6" stroke-linecap="round" opacity="0.18"/>
+  </g>
+  
+  <!-- Wordmark -->
+  <text x="250" y="118" 
+    fill="#ededed" 
+    font-family="Inter, -apple-system, system-ui, sans-serif" 
+    font-size="64" 
+    font-weight="600" 
+    letter-spacing="14">QANAT</text>
+</svg>

@@ -18,14 +18,15 @@ export function AboutHero() {
             About QANAT
           </span>
           <h1 className="text-heading-1 max-w-3xl">
-            Named after the ancient engineering that made
+            Named after the engineering that made
             <span className="accent-gradient"> civilizations </span>
             possible
           </h1>
           <p className="text-body-lg mt-6 max-w-2xl">
-            Qanat systems — underground channels built thousands of years ago in the Middle East — 
-            moved water across entire civilizations without pumps or power. Just precision engineering. 
-            That&apos;s the kind of infrastructure we build for modern businesses.
+            Qanat systems — underground channels built thousands of years ago in the
+            Middle East — moved water across entire civilizations without pumps or
+            power. Just precision engineering. That&apos;s the kind of infrastructure
+            we build for modern businesses.
           </p>
         </motion.div>
       </Container>

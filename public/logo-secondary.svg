@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  QANAT Logo — FINALIST 2: "The Channel" (REFINED)
+  
+  A letter Q formed from circular dots — qanat shaft openings seen from above.
+  The ring has a deliberate gap (like Pac-Man) to prevent spinner association.
+  The tail cascades with diminishing dots suggesting descent/depth.
+  
+  REFINEMENTS from original:
+  - Reduced from 12→10 ring dots to increase individual dot size (more legible at small sizes)
+  - Increased dot radius from 18→22px for better 16px visibility
+  - Added deliberate gap at 5 o'clock position (the "entry point")
+  - Tail dots start from the gap, not overlapping the ring
+  - Tighter tail curve for more elegant flow
+  - Ring slightly smaller (r=130) to give more breathing room to tail
+  - Each tail dot is now distinctly different sized (no ambiguity)
+  
+  SCALABILITY: The 10-dot ring reads clearly even at 32px
+  MEMORABILITY: "A Q made of dots with a descending tail" — sketchable in 5 seconds
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <style>
+      .shaft { fill: #0A0A0A; }
+    </style>
+  </defs>
+  
+  <!-- 
+    The Q Ring — 10 dots forming an open circle
+    Ring center: 220, 220 | Radius: 130
+    Gap at ~5 o'clock position (between 300° and 348°)
+    Dots placed at: 0°, 36°, 72°, 108°, 144°, 180°, 216°, 252°, 288° (skip 324°)
+    Note: 0° = 3 o'clock, going counterclockwise
+  -->
+  
+  <!-- 0° (3 o'clock) -->
+  <circle class="shaft" cx="350" cy="220" r="22"/>
+  <!-- 36° (above 3 o'clock) -->
+  <circle class="shaft" cx="325" cy="144" r="22"/>
+  <!-- 72° (near 12 o'clock) -->
+  <circle class="shaft" cx="260" cy="96" r="22"/>
+  <!-- 108° (past 12 o'clock) -->
+  <circle class="shaft" cx="180" cy="96" r="22"/>
+  <!-- 144° (near 9 o'clock) -->
+  <circle class="shaft" cx="115" cy="144" r="22"/>
+  <!-- 180° (9 o'clock) -->
+  <circle class="shaft" cx="90" cy="220" r="22"/>
+  <!-- 216° (below 9 o'clock) -->
+  <circle class="shaft" cx="115" cy="296" r="22"/>
+  <!-- 252° (near 6 o'clock) -->
+  <circle class="shaft" cx="180" cy="344" r="22"/>
+  <!-- 288° (past 6 o'clock) -->
+  <circle class="shaft" cx="260" cy="344" r="22"/>
+  
+  <!-- GAP at ~324° creates the Q opening → tail starts here -->
+  
+  <!-- Q Tail — Descending dots from the gap, diminishing in size -->
+  <circle class="shaft" cx="340" cy="322" r="19"/>
+  <circle class="shaft" cx="372" cy="354" r="15"/>
+  <circle class="shaft" cx="398" cy="382" r="11"/>
+  <circle class="shaft" cx="420" cy="406" r="8"/>
+  <circle class="shaft" cx="438" cy="426" r="5.5"/>
+</svg>

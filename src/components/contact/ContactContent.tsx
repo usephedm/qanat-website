@@ -240,10 +240,10 @@ export function ContactContent() {
                       Email
                     </h3>
                     <a
-                      href="mailto:hello@qanat.dev"
+                      href={`mailto:${SITE.contact.email}`}
                       className="text-body hover:text-accent transition-colors"
                     >
-                      hello@qanat.dev
+                      {SITE.contact.email}
                     </a>
                   </div>
 

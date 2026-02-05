@@ -14,14 +14,14 @@ export function HowWereDifferent() {
 
       <Container className="relative">
         <SectionHeading
-          label="How We&apos;re Different"
+          label="Why QANAT"
           title="Built different. Not just different words."
         />
 
         {/* Philosophy Statement */}
         <FadeIn delay={0.2} className="mt-12">
           <RevealText className="text-heading-2 text-foreground/90 leading-relaxed max-w-4xl">
-            The ancient qanat systems of the Middle East moved water across entire civilizations through invisible underground channels. No pumps. No power. Just precision engineering that worked for millennia. That&apos;s how we think about operations.
+            The ancient qanat systems moved water across entire civilizations through invisible underground channels. No pumps. No power. Just precision engineering that worked for millennia. We build the same thing for modern operations — infrastructure so good you forget it exists.
           </RevealText>
         </FadeIn>
 

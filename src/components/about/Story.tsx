@@ -18,34 +18,47 @@ export function Story() {
 
             <FadeIn delay={0.1}>
               <h2 className="text-heading-2">
-                From intelligence analysis to AI operations
+                Built from the ground up — literally
               </h2>
             </FadeIn>
 
             <div className="mt-8 space-y-6">
               <FadeIn delay={0.2}>
                 <p className="text-body-lg">
-                  QANAT was founded by Yousof Al-Ali — known as V — who spent years 
-                  at the intersection of intelligence analysis, technology, and 
-                  cross-border operations.
+                  QANAT was founded by V (Yousof Al-Ali) — an operations architect
+                  who spent years building cross-border service delivery systems
+                  from scratch, managing teams across timezones, and proving that
+                  world-class operations can be built from anywhere.
                 </p>
               </FadeIn>
 
               <FadeIn delay={0.3}>
                 <p className="text-body">
-                  The insight was simple but powerful: most businesses don&apos;t have a 
-                  talent problem or a strategy problem. They have an 
-                  <em className="text-foreground not-italic font-medium"> operations problem</em>. 
-                  The gap between what a company wants to do and what it actually 
-                  executes is almost always an infrastructure gap.
+                  The insight was simple but powerful: most businesses don&apos;t fail
+                  because of bad strategy or bad people. They fail because of
+                  <em className="text-foreground not-italic font-medium"> bad infrastructure</em>.
+                  The gap between what a company wants to do and what it actually
+                  executes is almost always an operations problem — and operations
+                  problems are engineering problems.
                 </p>
               </FadeIn>
 
               <FadeIn delay={0.4}>
                 <p className="text-body">
-                  QANAT exists to close that gap. We build the invisible systems — 
-                  AI agents, dispatch platforms, operational protocols — that let 
-                  businesses execute at the speed of their ambition.
+                  V built his first dispatch operation from zero — hiring, training,
+                  and scaling a team from 5 to 50+ people across multiple timezones,
+                  all while deploying AI systems that made each person 10x more
+                  effective. That operation went from nothing to $2.5M ARR in 18
+                  months. QANAT was born from that experience — the realization that
+                  operational infrastructure is the most valuable thing no one is building.
+                </p>
+              </FadeIn>
+
+              <FadeIn delay={0.5}>
+                <p className="text-body">
+                  Today, QANAT builds that infrastructure for other companies. We
+                  don&apos;t consult. We don&apos;t advise. We build, deploy, and
+                  operate the systems that let businesses scale.
                 </p>
               </FadeIn>
             </div>
@@ -59,8 +72,10 @@ export function Story() {
                   { label: 'Founded', value: '2025' },
                   { label: 'Headquarters', value: 'Wyoming, USA' },
                   { label: 'Operations', value: 'Cross-Border (US & Middle East)' },
-                  { label: 'Focus', value: 'AI-Powered Operations' },
+                  { label: 'Focus', value: 'AI-Powered Operations Infrastructure' },
                   { label: 'Team', value: 'Small & Elite' },
+                  { label: 'Largest Deployment', value: '50+ person operation' },
+                  { label: 'Revenue Generated', value: '$2.5M+ ARR (client)' },
                 ].map((item) => (
                   <div
                     key={item.label}
@@ -78,8 +93,8 @@ export function Story() {
             <FadeIn delay={0.5} direction="right">
               <blockquote className="mt-10 pl-6 border-l-2 border-accent/30">
                 <p className="text-body-lg text-foreground/80 italic">
-                  &ldquo;The best infrastructure is the kind you never think about. 
-                  It just works.&rdquo;
+                  &ldquo;The best infrastructure is the kind you never think about.
+                  It just works. That&apos;s what I build.&rdquo;
                 </p>
                 <cite className="mt-3 block text-sm text-muted not-italic">
                   — V, Founder & CEO
