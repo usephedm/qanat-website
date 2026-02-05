@@ -1,16 +1,22 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { MagneticButton } from '@/components/animations/MagneticButton';
 import { LogoIcon } from '@/components/ui/Logo';
+import { AnimatedCounter } from '@/components/animations/AnimatedCounter';
 import { useEffect, useRef } from 'react';
+import { EASE, DURATION, SPRING } from '@/lib/animations';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 function FlowingLines() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -21,9 +27,10 @@ function FlowingLines() {
     let time = 0;
 
     const resize = () => {
-      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      ctx.scale(dpr, dpr);
     };
 
     resize();
@@ -42,7 +49,7 @@ function FlowingLines() {
         ctx.lineWidth = 1 + (i % 3) * 0.5;
 
         const baseY = h * 0.2 + i * (h * 0.1);
-        for (let x = 0; x <= w; x += 2) {
+        for (let x = 0; x <= w; x += 3) {
           const y =
             baseY +
             Math.sin(x * 0.002 + time + i * 0.6) * 25 +
@@ -54,7 +61,7 @@ function FlowingLines() {
         ctx.stroke();
       }
 
-      time += 0.006;
+      time += 0.005;
       animationId = requestAnimationFrame(draw);
     };
 
@@ -64,25 +71,19 @@ function FlowingLines() {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', resize);
     };
-  }, []);
+  }, [prefersReducedMotion]);
+
+  if (prefersReducedMotion) return null;
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="absolute inset-0 w-full h-full pointer-events-none will-change-transform"
       style={{ opacity: 0.5 }}
+      aria-hidden="true"
     />
   );
 }
-
-const counterVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 1.2 + i * 0.15, duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as const },
-  }),
-};
 
 const stats = [
   { value: '$2.5M', label: 'ARR in 18 months' },
@@ -92,133 +93,177 @@ const stats = [
 ];
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Parallax the background on scroll
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background layers */}
-      <div className="absolute inset-0 grid-pattern" />
-      <FlowingLines />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(20,184,166,0.08),transparent)]" />
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center overflow-hidden"
+      aria-labelledby="hero-heading"
+    >
+      {/* Background layers with parallax */}
+      <motion.div
+        className="absolute inset-0"
+        style={prefersReducedMotion ? {} : { y: bgY }}
+      >
+        <div className="absolute inset-0 grid-pattern" />
+        <FlowingLines />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(20,184,166,0.08),transparent)]" />
+      </motion.div>
+
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent" aria-hidden="true" />
 
-      <Container className="relative z-10 pt-32 pb-20 md:pt-40 md:pb-32">
-        <div className="max-w-5xl">
-          {/* QN8 Brand Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center gap-4"
-          >
-            <span className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-border text-xs font-medium text-muted tracking-wider uppercase">
-              <LogoIcon size={16} />
-              QN8.app — AI Operations Infrastructure
-            </span>
-          </motion.div>
+      <motion.div
+        className="relative z-10 w-full"
+        style={prefersReducedMotion ? {} : { opacity: contentOpacity }}
+      >
+        <Container className="pt-32 pb-20 md:pt-40 md:pb-32">
+          <div className="max-w-5xl">
+            {/* QN8 Brand Badge */}
+            <motion.div
+              initial={prefersReducedMotion ? {} : { opacity: 0, y: 20, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: DURATION.slow, delay: 0.2, ease: EASE.enter }}
+              className="flex items-center gap-4"
+            >
+              <span className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-border text-xs font-medium text-muted tracking-wider uppercase">
+                <LogoIcon size={16} />
+                <span aria-label="QN8 dot app — AI Operations Infrastructure">QN8.app — AI Operations Infrastructure</span>
+              </span>
+            </motion.div>
 
-          {/* Headline — The 3-second hook */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-display mt-8"
-          >
-            We build the machine
-            <br />
-            <span className="accent-gradient">behind the machine.</span>
-          </motion.h1>
+            {/* Headline */}
+            <motion.h1
+              id="hero-heading"
+              initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: DURATION.slow, delay: 0.4, ease: EASE.enter }}
+              className="text-display mt-8"
+            >
+              We build the machine
+              <br />
+              <span className="accent-gradient">behind the machine.</span>
+            </motion.h1>
 
-          {/* Subheadline — V's magnetic positioning. Pure operations. Zero fluff. */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="text-body-lg mt-8 max-w-2xl"
-          >
-            Most companies have a strategy. Few have the operational infrastructure
-            to execute it. We build AI-powered dispatch systems, scale teams from
-            zero to fifty, and engineer the invisible systems that took one client
-            from startup to <span className="text-foreground font-medium">$2.5M ARR in 18 months</span>.
-          </motion.p>
+            {/* Subheadline */}
+            <motion.p
+              initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: DURATION.slow, delay: 0.7, ease: EASE.enter }}
+              className="text-body-lg mt-8 max-w-2xl"
+            >
+              Most companies have a strategy. Few have the operational infrastructure
+              to execute it. We build AI-powered dispatch systems, scale teams from
+              zero to fifty, and engineer the invisible systems that took one client
+              from startup to <span className="text-foreground font-medium">$2.5M ARR in 18 months</span>.
+            </motion.p>
 
-          {/* CTAs — Sales funnel entry points */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-            className="flex flex-wrap gap-4 mt-10"
-          >
-            <MagneticButton>
-              <Button href="/demo" size="lg">
-                Request a Demo
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="ml-1">
-                  <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Button>
-            </MagneticButton>
-            <MagneticButton>
-              <Button href="/case-studies" variant="secondary" size="lg">
-                See the Results
-              </Button>
-            </MagneticButton>
-          </motion.div>
+            {/* CTAs */}
+            <motion.div
+              initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: DURATION.slow, delay: 0.9, ease: EASE.enter }}
+              className="flex flex-wrap gap-4 mt-10"
+              role="group"
+              aria-label="Get started"
+            >
+              <MagneticButton>
+                <Button href="/demo" size="lg">
+                  Request a Demo
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="ml-1" aria-hidden="true">
+                    <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Button>
+              </MagneticButton>
+              <MagneticButton>
+                <Button href="/case-studies" variant="secondary" size="lg">
+                  See the Results
+                </Button>
+              </MagneticButton>
+            </motion.div>
 
-          {/* Founder trust signal — V's personal brand */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.1 }}
-            className="mt-12 flex items-center gap-4"
-          >
-            <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-sm font-semibold">
-              V
-            </div>
-            <div>
-              <p className="text-sm text-foreground font-medium">Built by V</p>
-              <p className="text-xs text-muted">
-                7+ years building ops infrastructure across 3 continents
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Social proof stats */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            {stats.map((stat, i) => (
+            {/* Founder trust signal */}
+            <motion.div
+              initial={prefersReducedMotion ? {} : { opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: DURATION.slow, delay: 1.1, ease: EASE.enter }}
+              className="mt-12 flex items-center gap-4"
+            >
               <motion.div
-                key={stat.label}
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                variants={counterVariants}
-                className="group"
+                className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-sm font-semibold"
+                whileHover={prefersReducedMotion ? {} : { scale: 1.1, borderColor: 'rgba(20, 184, 166, 0.5)' }}
+                transition={{ type: 'spring', ...SPRING.snappy }}
               >
-                <div className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight">
-                  {stat.value}
-                </div>
-                <div className="text-xs text-muted mt-1 uppercase tracking-wider">
-                  {stat.label}
-                </div>
+                V
               </motion.div>
-            ))}
-          </div>
-        </div>
+              <div>
+                <p className="text-sm text-foreground font-medium">Built by V</p>
+                <p className="text-xs text-muted">
+                  7+ years building ops infrastructure across 3 continents
+                </p>
+              </div>
+            </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
-        >
+            {/* Social proof stats — animated counters */}
+            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12" role="list" aria-label="Key metrics">
+              {stats.map((stat, i) => (
+                <motion.div
+                  key={stat.label}
+                  initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: DURATION.normal,
+                    delay: 1.2 + i * 0.15,
+                    ease: EASE.enter,
+                  }}
+                  className="group"
+                  role="listitem"
+                >
+                  <AnimatedCounter
+                    value={stat.value}
+                    delay={1.4 + i * 0.15}
+                    className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight block"
+                  />
+                  <div className="text-xs text-muted mt-1 uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Scroll indicator */}
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-5 h-8 border border-border/50 rounded-full flex items-start justify-center p-1"
+            initial={prefersReducedMotion ? {} : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.5, duration: 1 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
+            aria-hidden="true"
           >
-            <motion.div className="w-1 h-2 bg-muted/50 rounded-full" />
+            <motion.div
+              animate={prefersReducedMotion ? {} : { y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-5 h-8 border border-border/50 rounded-full flex items-start justify-center p-1"
+            >
+              <motion.div
+                animate={prefersReducedMotion ? {} : { opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                className="w-1 h-2 bg-accent/60 rounded-full"
+              />
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </Container>
+        </Container>
+      </motion.div>
     </section>
   );
 }

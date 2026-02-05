@@ -1,18 +1,24 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
 import { LogoFull } from '@/components/ui/Logo';
+import { FadeIn } from '@/components/animations/FadeIn';
 import { SITE } from '@/lib/constants';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const prefersReducedMotion = useReducedMotion();
 
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t border-border" role="contentinfo">
       <Container className="py-16 md:py-20">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-12 md:gap-8">
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-block" aria-label="QANAT — Home">
               <LogoFull />
             </Link>
             <p className="mt-1 text-xs text-accent/60 font-medium tracking-wider">{SITE.domain}</p>
@@ -20,7 +26,7 @@ export function Footer() {
           </div>
 
           {/* Company */}
-          <div>
+          <nav aria-label="Company links">
             <h3 className="text-sm font-medium text-foreground mb-4">Company</h3>
             <ul className="space-y-3">
               {[
@@ -40,10 +46,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Services */}
-          <div>
+          <nav aria-label="Services links">
             <h3 className="text-sm font-medium text-foreground mb-4">Services</h3>
             <ul className="space-y-3">
               {[
@@ -63,10 +69,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Resources & Connect */}
-          <div>
+          <nav aria-label="Resources links">
             <h3 className="text-sm font-medium text-foreground mb-4">Resources</h3>
             <ul className="space-y-3">
               <li>
@@ -85,6 +91,7 @@ export function Footer() {
                   className="text-sm text-muted hover:text-foreground transition-colors duration-200"
                 >
                   LinkedIn
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               </li>
               <li>
@@ -95,6 +102,7 @@ export function Footer() {
                   className="text-sm text-muted hover:text-foreground transition-colors duration-200"
                 >
                   X / Twitter
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               </li>
               <li>
@@ -106,11 +114,11 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </nav>
         </div>
 
         {/* Bottom */}
-        <div className="divider mt-12" />
+        <div className="divider mt-12" aria-hidden="true" />
         <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted">
             &copy; {currentYear} {SITE.entity.name}. All rights reserved.

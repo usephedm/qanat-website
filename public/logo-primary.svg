@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  QANAT Logo — FINALIST 1: "The Geometric Q" (REFINED)
+  QANAT / QN8 — PRIMARY MARK (FINAL v4)
+  "The Geometric Q" — Three-Channel Q
   
-  The strongest candidate. A bold Q formed by a thick-stroke circle (bowl)
-  with three parallel diagonal lines as the tail — representing three qanat
-  channels flowing underground. The tail cuts through the bowl via a mask,
-  creating visual integration between letter and metaphor.
+  A bold Q formed by a thick-stroke circle (bowl) with three parallel
+  diagonal lines as the tail — representing three qanat channels 
+  flowing underground. The tail cuts through the bowl via a mask.
   
-  REFINEMENTS from brand-kit version:
-  - Recentered to true 256,256 center for perfect icon framing
-  - Bowl stroke-width increased from 46→48 for better small-size legibility
-  - Tail angle adjusted to exactly 42° (golden angle approximation)
-  - Channel line spacing tightened for better visual rhythm
-  - Rounded line caps for all elements (consistent)
-  - Mask gap widened slightly for cleaner separation at small sizes
+  FINAL REFINEMENTS (v4):
+  ─ Optically centered in viewBox (compensating for tail weight)
+  ─ Bowl centered at 232,224 — shifted left/up to balance the tail mass
+  ─ Tail angle: exactly 42° (golden angle approximation)
+  ─ Channel weights: 22px (100%), 11px (45%), 5px (18%) — golden ratio step-down
+  ─ All stroke-linecap: round for consistency
+  ─ Gradient IDs namespaced to avoid conflicts (qn8-*)
+  ─ Tail clipped to viewBox bounds
+  ─ Minimum 12px padding on all edges
   
-  SCALABILITY: Tested at 16px, 32px, 64px, 256px, 512px, 1024px, 4096px
-  VERSATILITY: Available in color, dark, white, single-color variants
+  SCALABILITY: See sizes/ folder for optimized 16–1024px variants
+  COLOR VARIANTS: See variants/ folder for mono, dark, light, single-color
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <defs>
-    <linearGradient id="qanat-brand" x1="0.05" y1="0.05" x2="0.95" y2="0.95">
+    <linearGradient id="qn8-brand-grad" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#2dd4bf"/>
       <stop offset="100%" stop-color="#0d9488"/>
     </linearGradient>
-    <mask id="bowlCut">
+    <mask id="qn8-bowl-mask">
       <rect width="512" height="512" fill="white"/>
-      <!-- Tail passage through bowl — 42° angle, slightly wider gap for clarity -->
-      <rect x="228" y="232" width="240" height="62" fill="black" transform="rotate(42, 340, 306)"/>
+      <!-- Tail passage through bowl — 42° angle -->
+      <rect x="224" y="226" width="256" height="64" fill="black" 
+            transform="rotate(42, 340, 300)" rx="4"/>
     </mask>
   </defs>
   
-  <!-- Q Bowl — thick stroke circle, mask creates the tail passage -->
-  <circle cx="224" cy="216" r="138" stroke="url(#qanat-brand)" stroke-width="48" fill="none" mask="url(#bowlCut)"/>
+  <!-- Q Bowl — thick stroke circle with mask cut for tail passage -->
+  <circle cx="232" cy="224" r="136" 
+          stroke="url(#qn8-brand-grad)" stroke-width="48" 
+          fill="none" mask="url(#qn8-bowl-mask)"/>
   
-  <!-- Q Tail — Three qanat channels, primary/secondary/tertiary depth -->
+  <!-- Q Tail — Three qanat channels (primary / secondary / tertiary) -->
   <!-- Primary channel — the main underground tunnel -->
-  <line x1="188" y1="274" x2="436" y2="460" stroke="#14b8a6" stroke-width="22" stroke-linecap="round"/>
-  <!-- Secondary channel — parallel qanat, lighter weight -->
-  <line x1="208" y1="252" x2="452" y2="436" stroke="#14b8a6" stroke-width="11" stroke-linecap="round" opacity="0.42"/>
-  <!-- Tertiary channel — deepest, barely visible suggestion -->
-  <line x1="224" y1="234" x2="462" y2="414" stroke="#14b8a6" stroke-width="5" stroke-linecap="round" opacity="0.16"/>
+  <line x1="192" y1="272" x2="424" y2="452" 
+        stroke="#14b8a6" stroke-width="22" stroke-linecap="round"/>
+  <!-- Secondary channel — parallel qanat, reduced weight -->
+  <line x1="212" y1="250" x2="440" y2="428" 
+        stroke="#14b8a6" stroke-width="11" stroke-linecap="round" opacity="0.45"/>
+  <!-- Tertiary channel — deepest, subtle suggestion -->
+  <line x1="228" y1="232" x2="452" y2="408" 
+        stroke="#14b8a6" stroke-width="5" stroke-linecap="round" opacity="0.18"/>
 </svg>

@@ -2,15 +2,16 @@
 
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { RevealText } from '@/components/animations/RevealText';
+import { TextRevealByWord } from '@/components/animations/TextRevealByWord';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/animations/FadeIn';
+import { TiltCard } from '@/components/animations/TiltCard';
 import { VALUES } from '@/lib/constants';
 
 export function HowWereDifferent() {
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <section className="py-24 md:py-32 relative overflow-hidden" aria-labelledby="why-qanat-heading">
       {/* Subtle background accent */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/[0.02] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/[0.02] rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <Container className="relative">
         <SectionHeading
@@ -18,11 +19,12 @@ export function HowWereDifferent() {
           title="Built different. Not just different words."
         />
 
-        {/* Philosophy Statement */}
+        {/* Philosophy Statement — scroll-reveal */}
         <FadeIn delay={0.2} className="mt-12">
-          <RevealText className="text-heading-2 text-foreground/90 leading-relaxed max-w-4xl">
-            The ancient qanat systems moved water across entire civilizations through invisible underground channels. No pumps. No power. Just precision engineering that worked for millennia. We build the same thing for modern operations — infrastructure so good you forget it exists.
-          </RevealText>
+          <TextRevealByWord
+            text="The ancient qanat systems moved water across entire civilizations through invisible underground channels. No pumps. No power. Just precision engineering that worked for millennia. We build the same thing for modern operations — infrastructure so good you forget it exists."
+            className="text-heading-2 text-foreground/90 leading-relaxed max-w-4xl"
+          />
         </FadeIn>
 
         {/* Values Grid */}
@@ -33,11 +35,11 @@ export function HowWereDifferent() {
         >
           {VALUES.map((value, i) => (
             <StaggerItem key={value.title}>
-              <div className="bg-[#0a0a0a] p-10 md:p-12 h-full">
-                <span className="text-xs font-mono text-accent/60">
+              <div className="bg-[#0a0a0a] p-10 md:p-12 h-full group hover:bg-surface/30 transition-colors duration-500">
+                <span className="text-xs font-mono text-accent/60 group-hover:text-accent transition-colors duration-300">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <h3 className="text-heading-3 text-foreground mt-3">
+                <h3 className="text-heading-3 text-foreground mt-3 group-hover:text-accent transition-colors duration-300">
                   {value.title}
                 </h3>
                 <p className="text-body mt-4">

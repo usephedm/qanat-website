@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- QANAT — Horizontal Lockup (Mark + "QANAT" wordmark) -->
-<!-- For website header, formal contexts, letterheads -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 80" fill="none">
+<!-- QN8 — Horizontal Lockup (Mark + "QN8" wordmark) -->
+<!-- For digital-first contexts, app UI, social -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none">
   <defs>
-    <linearGradient id="qn8-lh-grad" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="qn8-lq-grad" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#2dd4bf"/>
       <stop offset="100%" stop-color="#0d9488"/>
     </linearGradient>
-    <mask id="qn8-lh-mask">
-      <rect width="480" height="80" fill="white"/>
+    <mask id="qn8-lq-mask">
+      <rect width="320" height="80" fill="white"/>
       <rect x="30" y="30" width="40" height="10" fill="black" 
             transform="rotate(42, 48, 42)" rx="1"/>
     </mask>
   </defs>
   
-  <!-- Mark (scaled to ~60px) -->
+  <!-- Mark -->
   <circle cx="32" cy="32" r="20" 
-          stroke="url(#qn8-lh-grad)" stroke-width="7" 
-          fill="none" mask="url(#qn8-lh-mask)"/>
+          stroke="url(#qn8-lq-grad)" stroke-width="7" 
+          fill="none" mask="url(#qn8-lq-mask)"/>
   <line x1="27" y1="39" x2="61" y2="66" 
         stroke="#14b8a6" stroke-width="3.2" stroke-linecap="round"/>
   <line x1="29.5" y1="36" x2="62" y2="62" 
@@ -25,11 +25,11 @@
   <line x1="31.5" y1="34" x2="63" y2="59" 
         stroke="#14b8a6" stroke-width="0.7" stroke-linecap="round" opacity="0.18"/>
   
-  <!-- QANAT wordmark — Inter Bold, wide tracking -->
+  <!-- QN8 wordmark — Inter Bold -->
   <text x="100" y="48" 
     fill="#ededed" 
     font-family="Inter, -apple-system, system-ui, sans-serif" 
-    font-size="32" 
+    font-size="34" 
     font-weight="700" 
-    letter-spacing="8">QANAT</text>
+    letter-spacing="2">QN8</text>
 </svg>

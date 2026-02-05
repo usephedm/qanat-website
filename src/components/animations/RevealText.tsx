@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 interface RevealTextProps {
   children: string;
@@ -10,56 +11,63 @@ interface RevealTextProps {
 
 export function RevealText({ children, className = '', delay = 0 }: RevealTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    let gsapInstance: typeof import('gsap') | null = null;
-    let scrollInstance: typeof import('gsap/ScrollTrigger') | null = null;
+    if (prefersReducedMotion) return;
+
+    let ctx: { revert: () => void } | null = null;
 
     const initGSAP = async () => {
       const gsap = await import('gsap');
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       gsap.default.registerPlugin(ScrollTrigger);
-      gsapInstance = gsap;
-      scrollInstance = { ScrollTrigger } as typeof import('gsap/ScrollTrigger');
 
       const el = containerRef.current;
       if (!el) return;
 
       const words = el.querySelectorAll('.word');
 
-      gsap.default.fromTo(
-        words,
-        { opacity: 0.15 },
-        {
-          opacity: 1,
-          duration: 0.5,
-          stagger: 0.05,
-          delay,
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 80%',
-            end: 'bottom 60%',
-            scrub: 0.5,
-          },
-        }
-      );
+      // Create GSAP context for cleanup
+      ctx = gsap.default.context(() => {
+        gsap.default.fromTo(
+          words,
+          { opacity: 0.12, y: 4 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            stagger: 0.03,
+            delay,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              end: 'bottom 55%',
+              scrub: 0.3,
+            },
+          }
+        );
+      }, el);
     };
 
     initGSAP();
 
     return () => {
-      if (scrollInstance) {
-        scrollInstance.ScrollTrigger.getAll().forEach((t) => t.kill());
-      }
+      if (ctx) ctx.revert();
     };
-  }, [delay]);
+  }, [delay, prefersReducedMotion]);
 
   const words = children.split(' ');
 
   return (
-    <div ref={containerRef} className={className}>
+    <div ref={containerRef} className={className} role="text">
       {words.map((word, i) => (
-        <span key={i} className="word inline-block mr-[0.3em]">
+        <span
+          key={i}
+          className="word inline-block mr-[0.3em]"
+          style={prefersReducedMotion ? { opacity: 1 } : undefined}
+        >
           {word}
         </span>
       ))}
