@@ -7,10 +7,19 @@ import { HowWereDifferent } from '@/components/home/HowWereDifferent';
 import { FAQ } from '@/components/home/FAQ';
 import { RecruitmentPreview } from '@/components/home/RecruitmentPreview';
 import { CTA } from '@/components/home/CTA';
+import { generateWebsiteSchema } from '@/lib/metadata';
+
+const websiteSchema = generateWebsiteSchema();
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteSchema),
+        }}
+      />
       <Hero />
       <div className="divider" />
       <WhatWeDo />

@@ -84,6 +84,14 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link
+                  href="/careers"
+                  className="text-sm text-accent hover:text-accent-light transition-colors duration-200 font-medium"
+                >
+                  We&apos;re Hiring 🚀
+                </Link>
+              </li>
+              <li>
                 <a
                   href={SITE.social.linkedin}
                   target="_blank"
@@ -111,6 +119,14 @@ export function Footer() {
                   className="text-sm text-muted hover:text-foreground transition-colors duration-200"
                 >
                   {SITE.contact.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${SITE.contact.hiring}`}
+                  className="text-sm text-muted hover:text-foreground transition-colors duration-200"
+                >
+                  {SITE.contact.hiring}
                 </a>
               </li>
             </ul>

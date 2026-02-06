@@ -19,6 +19,12 @@ export const siteMetadata: Metadata = {
     'dispatch management',
     'operational excellence',
     'revenue operations',
+    'remote dispatcher jobs',
+    'facility management dispatcher',
+    'remote dispatch coordinator',
+    'work from home dispatcher',
+    'facility management automation',
+    'AI dispatch systems',
     'QANAT',
     'QN8',
   ],
@@ -78,11 +84,64 @@ export function generateStructuredData() {
       addressCountry: 'US',
     },
     sameAs: [SITE.social.linkedin, SITE.social.twitter, SITE.social.github],
-    contactPoint: {
-      '@type': 'ContactPoint',
-      email: SITE.contact.email,
-      contactType: 'customer service',
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        email: SITE.contact.email,
+        contactType: 'customer service',
+      },
+      {
+        '@type': 'ContactPoint',
+        email: 'hr@qn8.app',
+        contactType: 'HR',
+      },
+    ],
+  };
+}
+
+export function generateWebsiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE.url}/search?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
     },
+  };
+}
+
+export function generateBreadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: `${SITE.url}${item.url}`,
+    })),
+  };
+}
+
+export function generateFAQSchema(faqs: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
   };
 }
 

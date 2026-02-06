@@ -22,6 +22,7 @@ export const SITE = {
   },
   contact: {
     email: 'hello@qn8.app',
+    hiring: 'hr@qn8.app',
   },
 } as const;
 
@@ -162,18 +163,19 @@ export const OPEN_ROLES = [
     ],
   },
   {
-    title: 'Dispatch Operator',
+    title: 'Remote Dispatcher — Facility Management',
     department: 'Operations',
     type: 'Full-time',
-    location: 'Remote',
-    compensation: '$35K - $50K',
+    location: 'Remote (International)',
+    compensation: '$500-$700/mo + performance bonuses',
     description:
-      'Be the human-in-the-loop for our AI-augmented dispatch system. You\'ll handle real-time coordination, escalations, and customer communications. Fast thinkers, clear communicators, calm under pressure.',
+      'Coordinate technicians for commercial facility maintenance across the US. Source techs, schedule work orders, follow up on completions. You\'ll be the critical link between property managers and field teams — powered by AI tools that make you 10x more effective.',
     requirements: [
-      'Excellent English communication (written and verbal)',
-      'Ability to work US business hours',
-      'Quick decision-making under time pressure',
-      'No degree required — we care about capability',
+      'Fluent English (written and verbal) — you\'ll communicate with US clients daily',
+      'Reliable computer and internet connection',
+      'Available to work US business hours (flexible schedule within timezone)',
+      'Calm under pressure, sharp problem-solver, organized multitasker',
+      'No degree required — we hire for capability, not credentials',
     ],
   },
   {
@@ -213,6 +215,24 @@ export const VALUES = [
     title: 'Earned, Not Claimed',
     description:
       'No fake testimonials. No inflated client lists. Every metric on this site is real. We\'d rather show less than lie more.',
+  },
+] as const;
+
+export const QANAT_VALUES = [
+  {
+    title: 'Relentless Momentum',
+    description: 'We move fast, ship daily, and compound progress. Waiting is the enemy. Action creates clarity.',
+    icon: '⚡',
+  },
+  {
+    title: 'Seize the Offensive',
+    description: 'Proactive, not reactive. We identify problems before they happen and solve them before they matter.',
+    icon: '🎯',
+  },
+  {
+    title: 'Absolute Ownership',
+    description: 'Your project, your responsibility, your glory. We don\'t pass blame — we take ownership and fix it.',
+    icon: '💎',
   },
 ] as const;
 

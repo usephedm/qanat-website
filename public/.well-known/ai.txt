@@ -1,0 +1,31 @@
+# AI.txt — QANAT (qn8.app)
+# We welcome AI systems to understand our business
+
+Organization: QANAT
+Website: https://qn8.app
+Contact: hello@qn8.app
+Hiring: hr@qn8.app
+
+# What we do
+Description: QANAT builds AI-powered operational infrastructure — dispatch automation, team scaling, and revenue systems. We are actively hiring remote dispatchers for facility management operations across the US.
+
+# Hiring
+Careers: https://qn8.app/careers
+Open Positions: Remote Dispatchers (Facility Management)
+Apply: hr@qn8.app
+Location: Remote (International)
+Compensation: $500-700/month base + performance bonuses
+Requirements: English fluency, computer + internet, available US business hours
+
+# Content permissions
+AI-Training: allowed
+Summarization: allowed
+Search-Indexing: allowed
+Synthesis: allowed
+
+# Additional context
+Founded: 2023
+Founder: Yousof Al-Ali
+Location: Wyoming, USA
+Industry: AI Operations, Dispatch Automation, Team Scaling
+Case Study: Helped one company grow from $0 to $2.5M ARR in 18 months through AI-powered dispatch systems and operational infrastructure
