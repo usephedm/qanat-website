@@ -6,9 +6,16 @@ import { Button } from '@/components/ui/Button';
 import { MagneticButton } from '@/components/animations/MagneticButton';
 import { LogoIcon } from '@/components/ui/Logo';
 import { AnimatedCounter } from '@/components/animations/AnimatedCounter';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, Suspense } from 'react';
 import { EASE, DURATION, SPRING } from '@/lib/animations';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import dynamic from 'next/dynamic';
+
+// Lazy load 3D particle field (heavy dependency)
+const ParticleField = dynamic(
+  () => import('@/components/three/ParticleField').then((mod) => mod.ParticleField),
+  { ssr: false }
+);
 
 function FlowingLines() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -119,6 +126,15 @@ export function Hero() {
         <FlowingLines />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(20,184,166,0.08),transparent)]" />
       </motion.div>
+      
+      {/* 3D Particle Field (lazy load) */}
+      {!prefersReducedMotion && typeof window !== 'undefined' && (
+        <div className="absolute inset-0 opacity-30">
+          <Suspense fallback={null}>
+            <ParticleField />
+          </Suspense>
+        </div>
+      )}
 
       {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent" aria-hidden="true" />

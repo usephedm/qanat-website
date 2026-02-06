@@ -9,10 +9,12 @@ import { LogoFull } from '@/components/ui/Logo';
 import { NAV_LINKS } from '@/lib/constants';
 import { EASE, DURATION, SPRING } from '@/lib/animations';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { FullscreenMenu } from './FullscreenMenu';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
 
@@ -87,106 +89,38 @@ export function Navbar() {
               </Link>
             </div>
 
-            {/* Mobile Hamburger */}
+            {/* Menu Button (Desktop & Mobile) */}
             <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="relative z-50 md:hidden flex flex-col gap-1.5 p-2 outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={mobileOpen}
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="relative z-50 flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground hover:text-accent transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
             >
-              <motion.span
-                animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                transition={{ duration: DURATION.fast, ease: EASE.enter }}
-                className="block w-6 h-[2px] bg-foreground origin-center"
-              />
-              <motion.span
-                animate={mobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-                transition={{ duration: DURATION.fast }}
-                className="block w-6 h-[2px] bg-foreground"
-              />
-              <motion.span
-                animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                transition={{ duration: DURATION.fast, ease: EASE.enter }}
-                className="block w-6 h-[2px] bg-foreground origin-center"
-              />
+              <span className="hidden md:inline">Menu</span>
+              <div className="flex flex-col gap-1.5">
+                <motion.span
+                  animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: DURATION.fast, ease: EASE.enter }}
+                  className="block w-6 h-[2px] bg-currentColor origin-center"
+                />
+                <motion.span
+                  animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+                  transition={{ duration: DURATION.fast }}
+                  className="block w-6 h-[2px] bg-currentColor"
+                />
+                <motion.span
+                  animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: DURATION.fast, ease: EASE.enter }}
+                  className="block w-6 h-[2px] bg-currentColor origin-center"
+                />
+              </div>
             </button>
           </nav>
         </Container>
       </motion.header>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#0a0a0a] md:hidden"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
-          >
-            <nav className="flex flex-col items-center justify-center h-full gap-8" aria-label="Mobile navigation">
-              {NAV_LINKS.map((link, i) => {
-                const isActive = pathname === link.href;
-                return (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
-                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    transition={{ delay: 0.1 + i * 0.05, duration: DURATION.normal, ease: EASE.enter }}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className={`text-2xl font-medium transition-colors ${
-                        isActive ? 'text-accent' : 'text-foreground hover:text-accent'
-                      }`}
-                      aria-current={isActive ? 'page' : undefined}
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                );
-              })}
-              {/* Additional mobile links */}
-              {[
-                { label: 'Pricing', href: '/pricing' },
-                { label: 'AI Ops Playbook', href: '/playbook' },
-              ].map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + i * 0.05, duration: DURATION.normal, ease: EASE.enter }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="text-xl text-muted hover:text-accent transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: DURATION.normal }}
-              >
-                <Link
-                  href="/demo"
-                  onClick={() => setMobileOpen(false)}
-                  className="mt-4 px-8 py-3 text-base font-medium text-[#0a0a0a] bg-accent rounded-full"
-                >
-                  Request Demo
-                </Link>
-              </motion.div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Fullscreen Menu */}
+      <FullscreenMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
   );
 }

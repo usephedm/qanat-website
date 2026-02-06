@@ -1,5 +1,6 @@
 import { Hero } from '@/components/home/Hero';
 import { WhatWeDo } from '@/components/home/WhatWeDo';
+import { StatsSection } from '@/components/home/StatsSection';
 import { CaseStudyPreview } from '@/components/home/CaseStudyPreview';
 import { ProcessSection } from '@/components/home/ProcessSection';
 import { HowWereDifferent } from '@/components/home/HowWereDifferent';
@@ -13,6 +14,8 @@ export default function Home() {
       <Hero />
       <div className="divider" />
       <WhatWeDo />
+      <div className="divider" />
+      <StatsSection />
       <div className="divider" />
       <CaseStudyPreview />
       <div className="divider" />

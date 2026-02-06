@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
+import { MassiveFooter } from '@/components/layout/MassiveFooter';
+import { SmoothScroll } from '@/components/global/SmoothScroll';
+import { CustomCursor } from '@/components/global/CustomCursor';
+import { LoadingScreen } from '@/components/global/LoadingScreen';
+import { GrainOverlay } from '@/components/global/GrainOverlay';
 import { siteMetadata, generateStructuredData } from '@/lib/metadata';
 import './globals.css';
 
@@ -45,10 +49,14 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} antialiased bg-background text-foreground`}>
+      <body className={`${inter.variable} antialiased bg-background text-foreground cursor-none-desktop`}>
+        <LoadingScreen />
+        <SmoothScroll />
+        <CustomCursor />
+        <GrainOverlay />
         <Navbar />
         <main className="min-h-screen">{children}</main>
-        <Footer />
+        <MassiveFooter />
       </body>
     </html>
   );

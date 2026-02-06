@@ -89,6 +89,29 @@ body {
   }
 }
 
+/* ─── Custom Cursor (hide default on desktop) ─── */
+@media (hover: hover) {
+  .cursor-none-desktop * {
+    cursor: none !important;
+  }
+}
+
+/* Show default cursor on mobile/touch devices */
+@media (hover: none) {
+  .cursor-none-desktop * {
+    cursor: auto !important;
+  }
+}
+
+/* ─── 3D Card Perspective ─── */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar {
   width: 6px;
