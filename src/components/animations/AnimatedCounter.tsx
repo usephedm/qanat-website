@@ -19,6 +19,7 @@ export function AnimatedCounter({ value, className = '', delay = 0 }: AnimatedCo
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const prefersReducedMotion = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
 
   // Parse the value
   const prefix = value.match(/^[^0-9]*/)?.[0] || '';
@@ -27,7 +28,7 @@ export function AnimatedCounter({ value, className = '', delay = 0 }: AnimatedCo
   const targetNum = parseFloat(numStr) || 0;
   const decimals = numStr.includes('.') ? numStr.split('.')[1].length : 0;
 
-  const spring = useSpring(0, {
+  const spring = useSpring(targetNum, {
     stiffness: 60,
     damping: 20,
     mass: 1,
@@ -38,7 +39,13 @@ export function AnimatedCounter({ value, className = '', delay = 0 }: AnimatedCo
   });
 
   useEffect(() => {
-    if (isInView && !prefersReducedMotion) {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isInView && !prefersReducedMotion && mounted) {
+      // Start from 0 only after mount
+      spring.jump(0);
       const timer = setTimeout(() => {
         spring.set(targetNum);
       }, delay * 1000);
@@ -46,9 +53,10 @@ export function AnimatedCounter({ value, className = '', delay = 0 }: AnimatedCo
     } else if (isInView && prefersReducedMotion) {
       spring.jump(targetNum);
     }
-  }, [isInView, targetNum, delay, spring, prefersReducedMotion]);
+  }, [isInView, targetNum, delay, spring, prefersReducedMotion, mounted]);
 
-  if (prefersReducedMotion) {
+  // Show actual value during SSR and initial render
+  if (!mounted || prefersReducedMotion) {
     return <span ref={ref} className={className}>{value}</span>;
   }
 

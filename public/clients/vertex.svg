@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 60" fill="none">
+  <path d="M15,15 L25,45 L35,15" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="50" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="700" fill="#1a1a1a">
+    VERTEX
+  </text>
+</svg>
