@@ -48,6 +48,12 @@ export default function RootLayout({
             __html: JSON.stringify(generateStructuredData()),
           }}
         />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="QANAT Intelligence RSS Feed"
+          href="/feed.xml"
+        />
       </head>
       <body className={`${inter.variable} antialiased bg-background text-foreground cursor-none-desktop`}>
         <LoadingScreen />

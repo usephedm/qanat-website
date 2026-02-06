@@ -28,8 +28,8 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { label: 'Services', href: '/services' },
+  { label: 'Intelligence', href: '/intelligence' },
   { label: 'Case Studies', href: '/case-studies' },
-  { label: 'About', href: '/about' },
   { label: 'Careers', href: '/careers' },
   { label: 'Contact', href: '/contact' },
 ] as const;
