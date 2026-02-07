@@ -1,551 +1,420 @@
 import type { Article } from './types';
 
 export const article: Article = {
-  slug: 'build-ai-dispatch-system',
-  title: 'How to Build an AI Dispatch System from Scratch: Technical Blueprint',
-  metaTitle: 'Build an AI Dispatch System — Complete Technical Guide | QANAT',
-  metaDescription: 'Complete technical blueprint for building an AI-powered dispatch system. Architecture, models, integrations, and deployment strategies from production experience.',
-  excerpt: 'Complete technical guide to building an AI dispatch system that actually works in production. No fluff, just architecture and code.',
-  content: `Most "how to build AI" guides are useless for production systems.
-
-This isn't that.
-
-This is a technical blueprint for building an AI dispatch system from scratch — based on 18 months of production deployment managing 500+ jobs/day.
-
-If you're technical and want to build this yourself, here's everything you need.
-
-## System Architecture Overview
-
-**High-level architecture:**
-
-**Clients** (Property managers, customers)
-↓
-**API Gateway** (Next.js/Express)
-- Authentication
-- Rate limiting
-- Request validation
-↓
-**Business Logic Layer**
-- Job intake & normalization
-- Decision routing (AI vs. human)
-- Integration orchestration
-↓
-**Three Core Systems:**
-
-1. **AI Engine**
-   - Claude Opus 4
-   - GPT-5 fallback
-   - Context store
-   - Decision logic
-
-2. **Human Oversight**
-   - Review dashboard
-   - Override interface
-   - Feedback system
-
-3. **Integrations**
-   - CRM
-   - SMS (Twilio)
-   - Email
-   - Calendar
-   - Payment systems
-
-## Component 1: Data Normalization Layer
-
-**Problem:** Work orders come in 20+ different formats from various sources.
-
-**Solution:** Normalize everything into a standard schema before AI sees it.
-
-**Tech stack:**
-- Language: TypeScript/Node.js
-- Validation: Zod or Yup
-- Storage: PostgreSQL
-
-**Core schema:**
-
-\`\`\`typescript
-interface WorkOrder {
-  id: string;
-  type: 'hvac' | 'plumbing' | 'electrical' | 'general' | 'emergency';
-  priority: 'low' | 'medium' | 'high' | 'emergency';
-  property: {
-    id: string;
-    name: string;
-    address: string;
-    timezone: string;
-    access_notes?: string;
-  };
-  requested_by: {
-    name: string;
-    role: 'property_manager' | 'tenant' | 'owner';
-    contact: { email?: string; phone?: string; };
-  };
-  description: string;
-  preferred_date?: Date;
-  required_skills: string[];
-  estimated_duration?: number;
-  budget_approval?: number;
-  attachments?: { url: string; type: string; }[];
-  metadata: Record<string, any>;
-  created_at: Date;
-  source: string;
-}
-\`\`\`
-
-**Normalization pipeline:**
-
-\`\`\`typescript
-async function normalizeWorkOrder(rawData: any, source: string): Promise<WorkOrder> {
-  // Step 1: Parse based on source
-  const parser = getParserForSource(source);
-  const parsed = await parser.parse(rawData);
-  
-  // Step 2: Classify job type (AI-assisted)
-  const classification = await classifyJobType(parsed.description);
-  
-  // Step 3: Extract priority (rules + AI)
-  const priority = determinePriority({
-    keywords: parsed.description,
-    explicit: parsed.priority,
-    client_tier: parsed.property.tier,
-    time_requested: parsed.created_at,
-  });
-  
-  // Step 4: Validate and enrich
-  return validateAndEnrich({
-    ...parsed,
-    type: classification,
-    priority,
-  });
-}
-\`\`\`
-
-**Critical detail:** Don't send raw data to AI. Normalize first. AI makes better decisions on clean data.
-
-## Component 2: AI Decision Engine
-
-**Core responsibility:** Take normalized work order, decide how to handle it.
-
-**Tech stack:**
-- Primary model: Claude Opus 4 (Anthropic API)
-- Fallback: GPT-5 (OpenAI API)
-- Inference: HTTP API calls
-- Context storage: Redis (for session state)
-
-**Decision flow:**
-
-\`\`\`typescript
-async function routeWorkOrder(order: WorkOrder): Promise<RoutingDecision> {
-  // Step 1: Gather context
-  const context = await buildContext({
-    order,
-    available_techs: await getAvailableTechs(order.property.timezone),
-    recent_history: await getRecentJobsForProperty(order.property.id),
-    tech_performance: await getTechPerformanceData(),
-  });
-  
-  // Step 2: Build prompt
-  const prompt = buildDispatchPrompt(context);
-  
-  // Step 3: Call AI with retry logic
-  const decision = await callAIWithRetry({
-    model: 'claude-opus-4',
-    prompt,
-    temperature: 0.2, // Low temperature for consistent decisions
-    max_tokens: 2000,
-  });
-  
-  // Step 4: Validate AI decision
-  const validated = validateDecision(decision, context);
-  
-  // Step 5: Determine confidence
-  const confidence = assessConfidence(validated, context);
-  
-  return {
-    ...validated,
-    confidence,
-    requires_review: confidence < 0.85 || order.priority === 'emergency',
-  };
-}
-\`\`\`
-
-**Prompt engineering (simplified):**
-
-\`\`\`typescript
-function buildDispatchPrompt(context: DispatchContext): string {
-  return \`
-You are a facility management dispatch coordinator. Your job: assign work orders to the best available technician.
-
-## Work Order
-Type: \${context.order.type}
-Priority: \${context.order.priority}
-Location: \${context.order.property.address}
-Description: \${context.order.description}
-Required skills: \${context.order.required_skills.join(', ')}
-Preferred date: \${context.order.preferred_date || 'ASAP'}
-
-## Available Technicians
-\${context.available_techs.map(tech => \`
-- \${tech.name} (ID: \${tech.id})
-  - Skills: \${tech.skills.join(', ')}
-  - Location: \${tech.current_location} (distance: \${tech.distance_miles} mi)
-  - Availability: \${tech.next_available}
-  - Performance: \${tech.rating}/5 (\${tech.completed_jobs} jobs)
-  - Current load: \${tech.active_jobs} jobs today
-  - Notes: \${tech.notes || 'None'}
-\`).join('\\n')}
-
-## Business Rules
-- Emergency jobs: assign closest available tech immediately
-- Prefer techs with relevant experience for this property
-- Don't overload techs: max 4 jobs per day
-- Travel time should be < 45 minutes when possible
-- Consider tech preferences and property access requirements
-
-## Recent Context
-\${formatRecentHistory(context.recent_history)}
-
-## Your Task
-1. Select the best technician for this job
-2. Provide reasoning for your choice
-3. Suggest alternative if primary tech unavailable
-4. Flag any concerns or risks
-
-Respond in JSON:
-{
-  "primary_tech_id": "string",
-  "reasoning": "string",
-  "alternative_tech_id": "string | null",
-  "estimated_arrival": "ISO timestamp",
-  "concerns": ["string"] | null,
-  "confidence": 0.0-1.0
-}
-\`;
-}
-\`\`\`
-
-**Critical details:**
-
-1. **Low temperature (0.2-0.3)** for operational decisions — you want consistency, not creativity
-2. **Structured output** (JSON) for reliable parsing
-3. **Rich context** including performance history, not just availability
-4. **Confidence scores** built into prompt so AI self-assesses
-
-## Component 3: Human Oversight Interface
-
-**Problem:** You can't deploy AI and walk away. You need oversight.
-
-**Solution:** Dashboard where human operators review high-stakes or low-confidence decisions.
-
-**Tech stack:**
-- Frontend: Next.js + React
-- Real-time: WebSockets (Socket.io or Pusher)
-- State: React Query for server state
-
-**Key views:**
-
-### 1. Review Queue
-
-\`\`\`typescript
-interface ReviewQueueItem {
-  order: WorkOrder;
-  ai_decision: RoutingDecision;
-  confidence: number;
-  flagged_reason: string;
-  time_in_queue: number;
-  priority: 'low' | 'medium' | 'high' | 'emergency';
-}
-
-// Component
-function ReviewQueue() {
-  const { data: queue } = useQuery('review-queue', fetchReviewQueue, {
-    refetchInterval: 5000, // Poll every 5s
-  });
-  
-  return (
-    <div>
-      {queue?.map(item => (
-        <ReviewCard
-          key={item.order.id}
-          item={item}
-          onApprove={handleApprove}
-          onOverride={handleOverride}
-          onEscalate={handleEscalate}
-        />
-      ))}
-    </div>
-  );
-}
-\`\`\`
-
-### 2. Real-Time Decision Stream
-
-Shows all AI decisions in real-time, color-coded by confidence:
-- **Green:** High confidence (>0.9), approved automatically
-- **Yellow:** Medium confidence (0.7-0.9), requires review
-- **Red:** Low confidence (<0.7) or emergency, requires immediate review
-
-### 3. Override Interface
-
-\`\`\`typescript
-function OverrideDecision({ order, aiDecision }: Props) {
-  const [overrideReason, setOverrideReason] = useState('');
-  
-  async function handleOverride(newTechId: string) {
-    await submitOverride({
-      order_id: order.id,
-      ai_decision: aiDecision.primary_tech_id,
-      human_decision: newTechId,
-      reason: overrideReason,
-      // This feedback trains the system
-    });
-  }
-  
-  return (
-    <Modal>
-      <h3>Override AI Decision</h3>
-      <p>AI suggested: {aiDecision.primary_tech_id}</p>
-      <TechSelector onChange={setNewTech} />
-      <TextArea 
-        placeholder="Why are you overriding?"
-        value={overrideReason}
-        onChange={e => setOverrideReason(e.target.value)}
-      />
-      <Button onClick={handleOverride}>Submit Override</Button>
-    </Modal>
-  );
-}
-\`\`\`
-
-**Critical:** Log every override with reason. This is how you improve the AI.
-
-## Component 4: Integrations Layer
-
-**Problem:** AI needs to interact with 5-10 external systems.
-
-**Solution:** Build adapters for each integration, unified interface.
-
-**Key integrations:**
-
-### 1. CRM (e.g., Salesforce, HubSpot)
-
-\`\`\`typescript
-interface CRMAdapter {
-  createJob(order: WorkOrder): Promise<string>; // returns CRM ID
-  updateJobStatus(id: string, status: JobStatus): Promise<void>;
-  getTechProfile(techId: string): Promise<TechProfile>;
-  logActivity(jobId: string, activity: Activity): Promise<void>;
-}
-
-class SalesforceAdapter implements CRMAdapter {
-  async createJob(order: WorkOrder) {
-    const sf = await this.getConnection();
-    const result = await sf.sobject('WorkOrder__c').create({
-      Name: \`\${order.type} - \${order.property.name}\`,
-      Description__c: order.description,
-      Priority__c: order.priority,
-      // ... map all fields
-    });
-    return result.id;
-  }
-  
-  // ... implement other methods
-}
-\`\`\`
-
-### 2. Communication (SMS, Email)
-
-\`\`\`typescript
-class CommunicationService {
-  async notifyTech(techId: string, job: WorkOrder) {
-    const tech = await getTechProfile(techId);
-    const message = formatTechNotification(job);
-    
-    // Try preferred channel first
-    if (tech.preferred_channel === 'sms') {
-      await this.sms.send(tech.phone, message);
-    } else {
-      await this.email.send(tech.email, message);
-    }
-    
-    // Log for tracking
-    await logCommunication({
-      recipient: techId,
-      channel: tech.preferred_channel,
-      message,
-      job_id: job.id,
-    });
-  }
-}
-\`\`\`
-
-### 3. Calendar/Scheduling
-
-\`\`\`typescript
-async function addToTechCalendar(techId: string, job: WorkOrder, estimatedArrival: Date) {
-  const calendar = await getTechCalendar(techId);
-  
-  await calendar.createEvent({
-    title: \`\${job.type} - \${job.property.name}\`,
-    start: estimatedArrival,
-    end: addMinutes(estimatedArrival, job.estimated_duration || 60),
-    location: job.property.address,
-    description: job.description,
-    reminders: [
-      { method: 'sms', minutes: 30 },
-    ],
-  });
-}
-\`\`\`
-
-## Component 5: Monitoring & Observability
-
-**You need to know:**
-- Is the AI making good decisions?
-- Where is it failing?
-- What patterns are emerging?
-
-**Tech stack:**
-- Metrics: Prometheus + Grafana
-- Logging: Loki or ELK stack
-- Alerts: PagerDuty or similar
-
-**Key metrics to track:**
-
-\`\`\`typescript
-// Decision quality
-metrics.ai_decision_accuracy.observe(isCorrect ? 1 : 0);
-metrics.ai_confidence.histogram(decision.confidence);
-metrics.human_override_rate.inc();
-
-// Performance
-metrics.decision_latency.observe(elapsedMs);
-metrics.api_calls_total.inc({ model: 'claude-opus-4', success: true });
-
-// Business impact
-metrics.jobs_routed_total.inc({ priority: order.priority });
-metrics.response_time_minutes.observe(responseTime);
-metrics.sla_compliance.observe(meetsSLA ? 1 : 0);
-\`\`\`
-
-**Alerting rules:**
-
-- AI decision accuracy drops below 90%
-- Human override rate exceeds 15%
-- API latency exceeds 5 seconds
-- Any job sits in review queue > 15 minutes
-
-## Deployment Architecture
-
-**Production setup (AWS example):**
-
-**Layer 1: CDN & Load Balancing**
-- CloudFront (CDN) → global distribution
-- ALB (Application Load Balancer) → traffic routing
-
-**Layer 2: Application Tier**
-- ECS Fargate (API Server) — Next.js application
-- ECS Fargate (Workers) — Background job queue processing
-
-**Layer 3: Data Storage**
-- RDS PostgreSQL — Work orders, decisions, all persistent data
-- ElastiCache Redis — Session state, caching, real-time data
-
-**Cost estimate (500 jobs/day):**
-- Compute (ECS Fargate): ~$300/month
-- Database (RDS): ~$200/month
-- Cache (Redis): ~$50/month
-- AI APIs (Claude/GPT): ~$500-900/month
-- Monitoring: ~$50/month
-- **Total: ~$1,100-1,500/month**
-
-## Critical Production Lessons
-
-### 1. Start with Human-in-Loop
-
-Don't go fully autonomous on day 1.
-
-**Phase 1:** AI suggests, human approves everything
-**Phase 2:** AI auto-approves high-confidence, human reviews rest
-**Phase 3:** AI autonomous with exception handling
-
-### 2. Log Everything
-
-Every decision, every override, every API call.
-
-You'll need this data to:
-- Debug production issues
-- Improve AI prompts
-- Train custom models
-- Prove ROI to stakeholders
-
-### 3. Build Rollback Mechanisms
-
-AI will make mistakes. You need to be able to:
-- Cancel bad assignments
-- Reassign jobs
-- Notify affected parties
-- Track impact
-
-### 4. Version Your Prompts
-
-\`\`\`typescript
-const PROMPTS = {
-  v1: '...', // original
-  v2: '...', // improved reasoning
-  v3: '...', // added edge case handling
-  current: 'v3',
-};
-
-async function callAI(prompt_version: string = PROMPTS.current) {
-  const prompt = PROMPTS[prompt_version];
-  // ...
-}
-\`\`\`
-
-A/B test prompt changes in production before full rollout.
-
-### 5. Plan for Model Changes
-
-APIs change. Models get deprecated. Pricing changes.
-
-Build abstraction layers:
-
-\`\`\`typescript
-interface AIProvider {
-  complete(prompt: string, options: CompletionOptions): Promise<AIResponse>;
-}
-
-class ClaudeProvider implements AIProvider { /* ... */ }
-class OpenAIProvider implements AIProvider { /* ... */ }
-
-// Easy to swap
-const aiProvider: AIProvider = new ClaudeProvider();
-\`\`\`
-
-## Next Steps
-
-If you're building this:
-
-1. **Start small** — one workflow, 10-20 jobs/day
-2. **Build the oversight interface first** — you need visibility
-3. **Log everything** — you'll need the data
-4. **Test with real humans** — pilot with actual operators
-5. **Iterate on prompts** — expect to rewrite 5-10 times
-
-Or [hire us to build it](/services). We've done this 12 times.
+  slug: 'what-ai-dispatch-systems-get-wrong',
+  title: 'What AI Dispatch Systems Get Wrong (And How to Think About Them Correctly)',
+  metaTitle: 'What AI Dispatch Systems Get Wrong — Strategic Guide | QANAT',
+  metaDescription: 'Most AI dispatch deployments fail. Not because of technology, but because of strategy. Here\'s what successful companies understand that others miss.',
+  excerpt: 'Everyone wants AI dispatch. Almost nobody deploys it successfully. The problem isn\'t the AI — it\'s how people think about the problem.',
+  content: `Every month I talk to companies that want to "build an AI dispatch system."
+
+They've read the articles. Seen the demos. Talked to vendors.
+
+Then they deploy something and it fails.
+
+Not because the AI doesn't work. Because they built the wrong thing.
+
+Here's what successful AI dispatch deployments understand that failed ones miss.
+
+## The Wrong Mental Model
+
+### What People Think AI Dispatch Is:
+
+"I give the AI my data, it makes decisions, jobs get routed. Done."
+
+### What AI Dispatch Actually Is:
+
+"I redesign my entire operational workflow with AI as a core component, integrate it with existing systems, build human oversight mechanisms, tune it continuously, and gradually transition from manual to automated decision-making."
+
+One sounds like a product. The other sounds like infrastructure.
+
+**Infrastructure is the right model.**
+
+## Mistake #1: Treating AI Like a Calculator
+
+Most failed deployments treat AI like deterministic software:
+
+**Input:** Work order
+**AI:** Calculate best tech
+**Output:** Assignment
+**Done**
+
+This works in demos. It breaks in production because operations aren't math problems.
+
+### What Actually Matters:
+
+**Context:** What happened earlier today? Which techs have been reliable lately? What client relationships are at risk?
+
+**Judgment:** Is "urgent" actually urgent? Should we assign the available tech or wait for the better one?
+
+**Uncertainty:** Data is incomplete. People change their minds. Priorities shift mid-day.
+
+**AI that ignores these realities makes technically correct but operationally terrible decisions.**
+
+### The Right Approach:
+
+Build systems where AI **maintains context**, **expresses uncertainty**, and **escalates appropriately**.
+
+Not binary decision-making. **Collaborative intelligence.**
+
+## Mistake #2: Optimizing for Demo Day
+
+I've seen dozens of "AI dispatch platforms" optimized for impressive demonstrations:
+
+- Clean UI
+- Fast responses
+- Perfect routing in controlled scenarios
+- Investors love it
+
+Then they deploy in real operations and:
+- Can't handle incomplete data
+- Break on edge cases
+- Don't integrate with existing tools
+- Require constant human intervention
+
+**Demo-ready ≠ Production-ready**
+
+### What Production-Ready Actually Requires:
+
+**Robust error handling:** What happens when the CRM API is down? When techs don't respond? When two systems have conflicting data?
+
+**Graceful degradation:** When AI isn't confident, it should escalate — not guess.
+
+**Deep integration:** Not Zapier webhooks. Real system integration with your CRM, communication tools, scheduling systems.
+
+**Human oversight infrastructure:** Dashboards for reviewing decisions, overriding when necessary, providing feedback for improvement.
+
+This is engineering work. Real engineering. Not configuration.
+
+## Mistake #3: Assuming Clean Data
+
+Every AI vendor demo uses perfect data:
+- Standardized formats
+- Complete information
+- Consistent schemas
+- No conflicts or ambiguity
+
+Production operations have none of this.
+
+### The Reality:
+
+Work orders arrive via:
+- Email (10+ different formats from different property managers)
+- SMS (casual language, missing details)
+- Phone calls (transcribed, often inaccurate)
+- Web forms (clients skip required fields)
+- Integrations (inconsistent API responses)
+
+Technician availability comes from:
+- Calendar systems (not always updated)
+- Manual status updates (delayed or forgotten)
+- Historical patterns (generally accurate but not perfect)
+- Real-time communication (texts saying "running late")
+
+**AI can't route jobs if it can't parse the data.**
+
+### The Right Approach:
+
+**Phase 1** isn't AI. It's **data normalization**.
+
+Build systems that:
+- Extract key information from any format
+- Validate and enrich incomplete data
+- Flag ambiguity for human review
+- Store everything in consistent schema
+
+THEN feed clean, structured data to AI.
+
+Most companies skip this step. That's why their AI systems fail.
+
+## Mistake #4: Ignoring the Human Element
+
+The biggest AI dispatch failures aren't technical. They're social.
+
+### What Breaks:
+
+**Property managers who want "their person":**
+- "I don't want to talk to a system."
+- "Just let me call Sarah."
+- Client churn from impersonal automation
+
+**Technicians who don't trust assignments:**
+- "This AI doesn't understand my situation."
+- "I'm not driving 90 minutes for a job I'm not qualified for."
+- Reduced acceptance rates, more cancellations
+
+**Operators who feel replaced:**
+- "What's my job now?"
+- "The AI keeps making mistakes and I have to fix them."
+- Team morale collapses, best people quit
+
+### The Right Approach:
+
+**Design for human-AI collaboration, not replacement:**
+
+- Property managers communicate with humans, AI powers the backend
+- Technicians get smart assignments but can request changes
+- Operators transition from execution to oversight and exception handling
+
+The best AI dispatch systems are **invisible to clients** and **empowering to teams**.
+
+## Mistake #5: All-or-Nothing Deployment
+
+I see this pattern constantly:
+
+Company decides to "go AI." Deploys system across entire operation. Chaos ensues. Rollback within 6 weeks.
+
+**Why this fails:**
+
+- Too many variables changing at once
+- No ability to isolate what works vs. what breaks
+- Team overwhelmed with new system
+- No data to guide improvements
+
+### The Right Approach:
+
+**Gradual rollout over 6-12 months:**
+
+**Month 1-2: Single workflow, pilot team**
+- Start with ONE high-volume, low-complexity task (e.g., routine maintenance routing)
+- Deploy to 1-2 operators
+- AI suggests, humans approve everything
+- Learn what works, what doesn't
+
+**Month 3-4: Tune and expand**
+- Refine based on pilot learnings
+- Add 3-5 more operators
+- AI handles higher confidence decisions autonomously
+- Humans review exceptions
+
+**Month 5-6: Broader deployment**
+- Roll out to full team
+- AI handling 60-70% autonomously
+- Expand to adjacent workflows
+- Build training and documentation
+
+**Month 7-12: Scale and optimize**
+- AI handling 80%+ routine work
+- Humans focused on exceptions and strategy
+- Continuous improvement culture
+- Add more workflows incrementally
+
+This timeline feels slow. But it **actually works**.
+
+## Mistake #6: Ignoring Edge Cases
+
+AI vendors love to talk about average-case performance.
+
+Operations break on edge cases.
+
+### The Edge Cases That Matter:
+
+- Tech accepts job then cancels 30 minutes before shift
+- Emergency work order arrives when all techs are fully booked
+- Property manager requests "urgent" repair but won't provide access codes
+- Two clients both claim "priority" status for conflicting time slots
+- System glitch creates duplicate work orders
+- Tech is available but has personal conflict with specific client
+
+**Average-case AI:** Makes reasonable decisions most of the time
+
+**Production AI:** Handles edge cases gracefully without breaking everything
+
+### The Right Approach:
+
+**Document every edge case as it happens.**
+
+When AI makes a mistake or escalates:
+1. Log the scenario
+2. Determine correct handling
+3. Update AI decision logic
+4. Test similar scenarios
+
+Over time, your AI gets better at the long tail of operational chaos.
+
+But this requires **continuous tuning**, not "set it and forget it."
+
+## Mistake #7: Underestimating Integration Complexity
+
+"We'll just connect the AI to our systems via API."
+
+Said every company before realizing their "systems" include:
+- 3 different CRMs (different clients use different platforms)
+- 2 scheduling tools
+- 5 communication channels (email, SMS, phone, Slack, WhatsApp)
+- 1 billing system with questionable API documentation
+- 2 legacy tools with no API at all
+- Multiple custom spreadsheets
+
+### The Reality:
+
+**Integration isn't a feature. It's the hardest part of the project.**
+
+You need:
+- Custom connectors for each system
+- Data mapping between incompatible formats
+- Sync logic to keep everything updated
+- Error handling when systems fail
+- Monitoring to detect integration issues
+
+This is 40-60% of the implementation work.
+
+### The Right Approach:
+
+**Budget appropriately:**
+- AI logic: 30% of effort
+- Integration: 50% of effort
+- UI/human oversight: 20% of effort
+
+If someone promises AI dispatch without discussing integration complexity, **they haven't done this before**.
+
+## What Successful Companies Do Instead
+
+The companies that actually deploy AI dispatch successfully:
+
+### 1. They Start with Process, Not Technology
+
+Before writing any code:
+- Map current workflows in detail
+- Document decision rules (even informal ones)
+- Identify bottlenecks and failure points
+- Define success metrics
+
+**AI doesn't fix bad processes. It automates them faster.**
+
+Fix the process first. Then automate it.
+
+### 2. They Build for Observability
+
+Every decision logged:
+- What data went into it
+- What AI recommended
+- What actually happened
+- Why (if overridden)
+
+This creates a **feedback loop** that makes AI better over time.
+
+Without observability, you're flying blind.
+
+### 3. They Design Human Oversight First
+
+Before deploying AI:
+- Build dashboards for reviewing decisions
+- Create override mechanisms
+- Define escalation criteria
+- Train team on AI supervision
+
+The UI that humans use to manage AI is **as important as the AI itself**.
+
+### 4. They Accept That AI Will Make Mistakes
+
+No AI system is 100% accurate. Ever.
+
+The question is: **How do you handle the 1-5% of decisions that are wrong?**
+
+Good systems:
+- Detect errors quickly
+- Minimize impact
+- Learn from mistakes
+- Improve continuously
+
+Bad systems:
+- Errors cascade
+- Clients notice before you do
+- No mechanism for correction
+- Same mistakes repeat
+
+### 5. They Invest in Continuous Improvement
+
+AI dispatch isn't "deploy and done."
+
+It's "deploy and tune continuously."
+
+The best companies:
+- Review AI performance weekly
+- Update decision logic based on feedback
+- A/B test changes before full rollout
+- Treat AI like a team member that needs coaching
+
+## The Real Cost of AI Dispatch
+
+Most companies underestimate what it takes:
+
+**What vendors quote:**
+- "AI dispatch platform: $5K/month subscription"
+
+**What it actually costs:**
+- Platform/API: $2-5K/month
+- Custom integration: $50-150K one-time
+- Human oversight infrastructure: $30-80K one-time
+- Ongoing tuning and maintenance: $5-15K/month
+
+**Total Year 1: $150-300K depending on complexity**
+
+This sounds expensive.
+
+But if it replaces 5-10 coordinator roles, ROI is 12-18 months.
+
+The problem is vendors pitch the subscription cost, not the total implementation cost.
+
+## How to Think About AI Dispatch Correctly
+
+Stop thinking about AI dispatch as **software you buy**.
+
+Start thinking about it as **infrastructure you build**.
+
+Like hiring a team, it requires:
+- Upfront investment
+- Training and integration
+- Ongoing management
+- Continuous improvement
+
+But unlike a team, it **scales infinitely** without proportional cost increase.
+
+## The Strategic Question
+
+The real question isn't "Should we adopt AI dispatch?"
+
+It's "How fast can we move before competitors do?"
+
+Because once one company in your market has AI dispatch:
+- They respond 5x faster
+- They scale 3x cheaper
+- They operate 24/7
+- They improve continuously
+
+You're stuck competing with manual processes against automated intelligence.
+
+That's not sustainable.
+
+## QANAT's Approach
+
+We don't sell AI dispatch as a product. We build it as **custom infrastructure** for each client.
+
+**What that means:**
+- We map your specific workflows
+- We build custom integration with YOUR systems
+- We design human-AI collaboration for YOUR team
+- We deploy gradually with YOUR input
+- We tune continuously based on YOUR data
+
+This isn't faster or cheaper than generic platforms upfront.
+
+But it **actually works in production**.
+
+[See what we've built](/services) or [talk to us](/contact) about your dispatch challenges.
 
 ---
 
-**QANAT builds custom AI dispatch systems for facility management and field operations. We handle architecture, implementation, and deployment so you can focus on your business. [Learn more](/services) or [contact us](/contact) to discuss your project.**`,
+**AI dispatch isn't a product. It's infrastructure. QANAT builds custom AI operations systems that scale without breaking. [Learn more](/services) or [get in touch](/contact).**`,
   author: {
     name: 'Yousof Al-Ali',
     title: 'Founder & CEO, QANAT',
-    bio: 'Building AI-powered operations infrastructure. Scaled one company from 0 to $2.5M ARR in 18 months using AI dispatch systems.',
+    bio: 'Building AI-powered operations infrastructure. Former cybersecurity specialist turned AI operations architect.',
   },
   publishedAt: '2026-01-30',
-  readingTime: 12,
+  readingTime: 11,
   category: 'AI Tools',
-  tags: ['Technical Guide', 'System Architecture', 'AI Dispatch', 'Engineering'],
+  tags: ['AI Dispatch', 'System Design', 'Operations', 'Strategy'],
   featured: false,
 };

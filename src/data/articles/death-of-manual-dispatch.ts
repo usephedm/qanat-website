@@ -20,8 +20,8 @@ The transformation is already happening. AI dispatch systems are replacing manua
 - Estimated 15,000-20,000 dispatch coordinators
 
 **What AI dispatch can do:**
-- 1 AI agent = 10-15 manual coordinators
-- Deployment time: 2-4 weeks
+- 1 AI agent = 5-10 manual coordinators
+- Deployment time: 8-16 weeks
 - Cost: 1/5th of a human salary
 - Accuracy: Higher (no forgotten follow-ups, no missed escalations)
 
@@ -41,7 +41,7 @@ Traditional automation (IVRs, scheduling software) could handle simple tasks but
 
 **Then LLMs arrived.**
 
-Claude Opus 4, GPT-4, and similar models can:
+Claude Opus 4, GPT-5, and similar models can:
 - Understand natural language requests
 - Reason about scheduling conflicts
 - Manage multiple stakeholders simultaneously
@@ -99,30 +99,25 @@ Not all dispatch jobs die at once. It happens in stages.
 - Strategic business development
 - Training and team leadership
 
-## Case Study: Real Company, Real Numbers
+## Industry Reports: The Pattern Emerging
 
-One of our clients came to us in mid-2024 with 8 manual dispatch coordinators managing 25 technicians.
+Multiple facility management companies have deployed AI dispatch in the past 18 months. While specific numbers vary, the pattern is consistent:
 
-**Manual dispatch stats (before):**
-- Average time to assign a job: 18 minutes
-- Daily coordinator capacity: 25-30 jobs per person
-- Total throughput: 200-240 jobs/day with full team
-- Missed follow-ups: 5-8% of jobs
-- Response time SLA: 78% compliance
+**Before AI deployment (typical mid-sized operation):**
+- Dispatch teams sized to handle peak volume
+- Average response time: 2-6 hours
+- Manual follow-up required on most jobs
+- Missed communications: 5-10% of jobs
+- SLA compliance: 75-85%
 
-**AI dispatch stats (after 3 months):**
-- Average time to assign a job: 2 minutes
-- AI capacity: 500+ jobs/day per agent
-- Total throughput: 400+ jobs/day with 2 AI agents + 3 human supervisors
-- Missed follow-ups: 0.2% (mostly edge cases)
-- Response time SLA: 99.2% compliance
+**After AI deployment (same companies, 6-12 months later):**
+- Smaller oversight teams managing AI + exceptions
+- Average response time: 15-45 minutes
+- Automated follow-up with exception handling
+- Missed communications: <1%
+- SLA compliance: 95-99%
 
-**Headcount change:**
-- Before: 8 coordinators
-- After: 3 senior operators (managing AI + handling exceptions)
-- **Net reduction: 5 roles**
-
-Those 5 people didn't get reassigned. They got let go.
+**Headcount impact reported:** 40-60% reduction in pure coordination roles, with remaining staff transitioning to higher-value oversight and relationship work.
 
 This is the pattern repeating across the industry.
 
@@ -133,9 +128,9 @@ Yes, AI creates new roles:
 - Dispatch Systems Engineer
 - Automation Specialist
 
-But here's the problem: **1 AI Operations Manager replaces 10-15 coordinators**.
+But here's the problem: **1 AI Operations Manager replaces 5-10 coordinators**.
 
-The math doesn't balance. For every 1 new job created, 10-15 existing jobs disappear.
+The math doesn't balance. For every 1 new job created, 5-10 existing jobs disappear.
 
 And the new jobs require different skills:
 - Technical fluency
@@ -147,19 +142,19 @@ Most manual dispatchers don't have these skills. Retraining is possible but slow
 
 ## The Uncomfortable Truth
 
-I run a company that builds these AI dispatch systems. I've seen firsthand what happens when we deploy them:
+Companies building and deploying AI dispatch systems see this firsthand:
 - Operations get faster
 - Costs go down
 - Quality improves
 - **People lose jobs**
 
-The companies we work with don't talk about it publicly. They call it "operational efficiency" or "team restructuring." But the reality is: **AI is replacing manual coordinators, and it's happening fast.**
+The companies making this transition don't talk about it publicly. They call it "operational efficiency" or "team restructuring." But the reality is: **AI is replacing manual coordinators, and it's happening fast.**
 
-I'm not celebrating this. But I'm also not pretending it's not happening.
+Nobody's celebrating this. But pretending it's not happening doesn't help anyone.
 
 ## What Should Coordinators Do?
 
-If you're a dispatch coordinator right now, here's my honest advice:
+If you're a dispatch coordinator right now, here's honest advice:
 
 ### Option 1: Level Up Fast
 
@@ -180,7 +175,7 @@ Some dispatch roles are harder to automate:
 
 These roles won't be automated as quickly because the cost of error is too high.
 
-### Option 3: Get Out Early
+### Option 3: Transition Early
 
 If you're in a high-volume, low-complexity dispatch role and your company hasn't adopted AI yet — they will.
 
@@ -198,7 +193,7 @@ If you're running a facility management company and still doing manual dispatch:
 
 ### 1. Adopt AI Before Your Competitors Do
 
-Once your competitor can respond 5x faster and 1/3 the cost, you're toast.
+Once your competitor can respond 5x faster at 1/3 the cost, you're in trouble.
 
 This isn't about efficiency — it's about **survival**.
 
@@ -250,6 +245,22 @@ Any job that's primarily **coordination + communication + routine decision-makin
 
 And that's a LOT of jobs.
 
+## The Strategic Response
+
+For companies, the choice is clear:
+
+**Move fast:** Deploy AI operations, retain top talent in new roles, build competitive moats
+
+**Move slow:** Watch competitors pull ahead, lose clients to faster service, play catch-up in 2027
+
+For workers, the path forward is adaptation:
+
+**Skill up:** Learn AI management, strategic operations, relationship work
+
+**Move up:** Transition from execution to oversight and strategy
+
+**Move out:** Find roles where human judgment and relationships are irreplaceable
+
 ## Conclusion
 
 Manual dispatch is dying. Not in 10 years. In 3.
@@ -262,11 +273,11 @@ This isn't a prediction. It's a pattern that's already playing out. The only que
 
 ---
 
-**QANAT builds AI-powered dispatch systems for facility management and field operations. We've deployed automation that replaced manual coordination for companies managing 50+ technicians. [Learn more](/services) or [see our case studies](/case-studies).**`,
+**QANAT builds AI-powered dispatch systems for facility management and field operations. We help companies transition to AI operations while managing the human and strategic challenges. [Learn more](/services) or [contact us](/contact) to discuss your transition strategy.**`,
   author: {
     name: 'Yousof Al-Ali',
     title: 'Founder & CEO, QANAT',
-    bio: 'Building AI-powered operations infrastructure. Scaled one company from 0 to $2.5M ARR in 18 months using AI dispatch systems.',
+    bio: 'Building AI-powered operations infrastructure. Former cybersecurity specialist turned AI operations architect.',
   },
   publishedAt: '2026-02-05',
   readingTime: 9,

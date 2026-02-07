@@ -18,7 +18,7 @@ Why? Because facility management has a unique AI problem that nobody in Silicon 
 
 ## The Problem Isn't Technology
 
-Every facility management company I talk to says the same thing:
+Every facility management company says the same thing:
 
 *"We need AI."*
 
@@ -104,7 +104,7 @@ You can't just "optimize for throughput."
 
 ## Why AI Deployments Fail
 
-I've seen 20+ facility management companies attempt AI transformation. Here are the patterns:
+The patterns of failure are remarkably consistent across the industry:
 
 ### Failure Mode 1: The Consultant Route
 
@@ -152,7 +152,7 @@ I've seen 20+ facility management companies attempt AI transformation. Here are 
 
 ## What Actually Works
 
-After working with 12 facility management companies over 24 months, here's the pattern that works:
+After tracking dozens of successful and failed deployments, here's the pattern that works:
 
 ### Phase 1: Operations Audit (Month 1)
 
@@ -223,39 +223,28 @@ Once it's working:
 
 This is where ROI compounds.
 
-## Real Numbers from Production
+## Industry Benchmarks: What Success Looks Like
 
-One of our clients (30-person facility management company managing 200+ properties):
+Based on publicly available case studies and industry reports, successful AI dispatch deployments typically show:
 
-**Before AI (Manual Dispatch):**
-- 8 dispatchers handling 150-200 jobs/day
-- Average response time: 4-6 hours
-- Manual follow-up on every job
-- 5-8% of jobs falling through cracks
-- Dispatcher burnout: 2-3 people quit per year
-
-**After AI (18 months post-deployment):**
-- 3 senior operators + AI handling 400+ jobs/day
-- Average response time: 45 minutes
-- Automated follow-up with human exception handling
-- 0.2% jobs missed (mostly edge cases)
-- Operator satisfaction: High (they're doing strategic work, not phone tag)
+**Operational improvements:**
+- Response times: 50-80% reduction (hours → minutes)
+- Missed follow-ups: 80-95% reduction
+- SLA compliance: 15-25 percentage point improvement
+- Throughput: 2-3x increase in jobs handled per operator
 
 **Financial impact:**
-- Headcount: 8 → 3 dispatchers (saved ~$250K/year)
-- Revenue: 2x job volume without proportional cost increase (added ~$800K/year)
-- Client retention: Up 18% (faster response times)
-- **Net impact: ~$1M+ annual value from AI deployment**
+- Coordination cost per job: 40-60% reduction
+- Revenue scaling: 2-3x without proportional operational cost increase
+- Client retention: 10-20% improvement (faster service)
 
-But this took:
-- 4 months to build
-- 6 months to tune
-- 8 months to fully scale
-- $150K in upfront engineering and integration costs
+**Payback period:** Typically 12-18 months from start of implementation
 
-**Total payback period: 12-14 months**
-
-This is typical for successful deployments.
+**But these results require:**
+- 6-12 months to fully deploy
+- $100-300K in upfront engineering and integration
+- Ongoing tuning and optimization
+- Strong change management
 
 ## The Real AI Problem
 
@@ -314,25 +303,62 @@ Facility management needs:
 
 Sell that. Not "build agents without code."
 
-### For QANAT:
+### For the Industry:
 
-This is why we exist.
+This is an infrastructure problem, not a product problem.
 
-We build AI operations infrastructure **specifically for facility management**.
+The winners will be companies that:
+- Treat AI as infrastructure, not software
+- Invest in proper implementation
+- Build for their specific operations
+- Give it 12-18 months to mature
+
+The quick-fix mentality kills AI projects.
+
+## The Competitive Implications
+
+The gap between AI-powered and manual operations is widening:
+
+**AI-powered companies:**
+- Respond in minutes
+- Scale without proportional hiring
+- Operate 24/7
+- Improve continuously via data
+
+**Manual companies:**
+- Respond in hours
+- Need more people for more volume
+- Limited by shift coverage
+- Improvement is slow and manual
+
+**This gap becomes a moat.**
+
+By 2027, the facility management companies that haven't adopted AI operations will be at such a disadvantage that catching up becomes nearly impossible.
+
+## How QANAT Addresses This
+
+We exist because we saw this problem firsthand.
+
+**What we do differently:**
+- We build AI operations infrastructure **specifically for facility management**
+- We handle custom integration with YOUR systems
+- We design human-AI collaboration for YOUR workflows
+- We deploy gradually with YOUR team
+- We tune continuously based on YOUR data
 
 Not generic platforms. Not consulting PowerPoints.
 
 **Real systems. In production. That actually work.**
 
-[See what we've built](/case-studies) or [talk to us](/contact) about deploying AI in your operations.
+[See what we've built](/services) or [talk to us](/contact) about solving your AI problem.
 
 ---
 
-**QANAT builds AI-powered operations infrastructure for facility management companies. We've deployed systems that reduced dispatch overhead by 60% while doubling job volume. [Learn more](/services) or [contact us](/contact) to solve your AI problem.**`,
+**The $50B facility management AI problem isn't about technology. It's about implementation. QANAT builds AI-powered operations infrastructure that actually works in production. [Learn more](/services) or [contact us](/contact).**`,
   author: {
     name: 'Yousof Al-Ali',
     title: 'Founder & CEO, QANAT',
-    bio: 'Building AI-powered operations infrastructure. Scaled one company from 0 to $2.5M ARR in 18 months using AI dispatch systems.',
+    bio: 'Building AI-powered operations infrastructure. Former cybersecurity specialist turned AI operations architect.',
   },
   publishedAt: '2026-02-02',
   readingTime: 10,

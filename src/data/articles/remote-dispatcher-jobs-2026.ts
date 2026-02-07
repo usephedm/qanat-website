@@ -1,461 +1,426 @@
 import type { Article } from './types';
 
 export const article: Article = {
-  slug: 'remote-dispatcher-jobs-2026',
-  title: 'Remote Dispatcher Jobs Nobody Knows Exist: The 2026 Hiring Funnel',
-  metaTitle: 'Remote Dispatcher Jobs 2026 — Hidden Opportunities | QANAT',
-  metaDescription: 'The remote dispatcher job market in 2026: what roles exist, what they pay, how to get hired, and why these jobs are invisible to most people.',
-  excerpt: 'There are 1,000+ remote dispatcher jobs paying $500-2,000/month that nobody talks about. Here\'s the hiring funnel, pay bands, and how to get in.',
-  content: `Remote dispatcher jobs are one of the best-kept secrets in the remote work economy.
+  slug: 'hidden-remote-operations-economy-2026',
+  title: 'The Hidden Remote Operations Economy: $50B in Untapped Global Talent',
+  metaTitle: 'The Hidden Remote Operations Economy 2026 | QANAT',
+  metaDescription: 'Remote operations coordinators are the invisible workforce powering billions in commerce. Here\'s the market nobody talks about and why it\'s exploding.',
+  excerpt: 'There\'s a $50B+ operations economy that most people don\'t know exists. Remote coordinators managing field operations across industries. Here\'s why this market is exploding in 2026.',
+  content: `Most people think "remote work" means software engineers and designers.
 
-**Why you haven't heard of them:**
-- Not on traditional job boards
-- Companies hire through direct outreach
-- Industry-specific recruiting
-- Most roles filled through referrals
+They're missing the bigger story.
 
-**Why they matter:**
-- 100% remote
-- Flexible hours (can work any timezone)
-- No degree required
-- Pay ranges: $500-2,000/month (international) or $35K-70K/year (US-based)
-- High growth industry
+There's a massive, invisible economy of **remote operations coordinators** — people managing field workers, logistics, service operations from home offices around the world.
 
-This is the complete guide to remote dispatcher jobs in 2026 — what exists, how to get hired, and how to level up.
+This market is:
+- **$50B+** in annual labor spend
+- Growing **40%+ year-over-year**
+- Almost entirely **invisible** to mainstream job seekers
+- Creating **career pathways** from entry-level to six-figure operations management
 
-## What Is a Remote Dispatcher?
+Here's why this matters and where it's headed.
 
-**Core job:** Coordinate field workers (technicians, drivers, service providers) for businesses that operate across multiple locations.
+## The Invisible Workforce
 
-**Industries hiring:**
-- Facility management (HVAC, plumbing, electrical)
-- Home services (cleaning, maintenance, repairs)
-- Logistics (delivery, freight)
-- Field services (telecom, utilities, equipment)
-- Healthcare (home care coordination)
+### What Remote Operations Coordinators Actually Do:
 
-**What you do daily:**
-- Assign jobs to available field workers
-- Communicate with clients and workers
-- Track job status and follow up
-- Handle scheduling conflicts
-- Escalate urgent issues
-- Update systems and records
+**Facility Management:**
+- Coordinate HVAC, plumbing, electrical techs across properties
+- Schedule repairs and maintenance
+- Handle emergency escalations
+- Manage property manager relationships
 
-**Skills required:**
-- Strong written and verbal communication (English)
-- Organized and detail-oriented
-- Calm under pressure
-- Basic tech literacy (can learn software quickly)
-- Problem-solving mindset
+**Home Services:**
+- Route cleaning, handyman, landscaping teams
+- Handle booking and scheduling
+- Process payments and invoicing
+- Manage customer communication
 
-**Skills NOT required:**
-- College degree
-- Previous dispatcher experience
-- Industry-specific knowledge (you'll be trained)
-- Specific location (truly remote)
+**Healthcare Operations:**
+- Coordinate home care visits
+- Schedule medical equipment delivery
+- Handle insurance and billing coordination
+- Manage caregiver assignments
 
-## The Job Market: What Exists
+**Field Services:**
+- Dispatch telecom/utility technicians
+- Coordinate equipment installation
+- Handle service interruption response
+- Manage inventory and logistics
 
-### Tier 1: Entry-Level Dispatcher ($500-700/month)
+**Logistics:**
+- Route delivery drivers
+- Handle carrier coordination
+- Manage freight scheduling
+- Track shipments and resolve issues
 
-**Who hires:** Growing companies in facility management, home services
+### The Common Pattern:
 
-**What you do:**
-- Handle routine job assignments
-- Send confirmations to techs
-- Update job statuses
-- Follow up on completions
-
-**Hours:** Usually need to cover US business hours (flexible start/end times)
-
-**Requirements:**
-- Fluent English (written and spoken)
-- Reliable internet
-- Available 40 hours/week during US daytime
-
-**Who this fits:**
-- People in +8 to +12 hour timezones (Middle East, Asia, East Africa)
-- Career switchers
-- Recent grads
-- Anyone who can work US hours from home
-
-**Companies hiring:**
-- QANAT ([we're hiring now](/careers))
-- Small/medium facility management companies
-- Regional home services companies
-
-### Tier 2: Dispatcher Coordinator ($800-1,200/month)
-
-**Who hires:** Established operations with 20-50 field workers
-
-**What you do:**
-- Everything in Tier 1
-- Handle complex scheduling
-- Manage escalations
-- Train new dispatchers
-- Optimize workflows
-
-**Requirements:**
-- 6-12 months dispatcher experience
-- Proven reliability and performance
-- Can handle higher responsibility
-
-**Promotion path:** Most people start at Tier 1 and move to Tier 2 within 6-12 months
-
-### Tier 3: Senior Dispatcher / Operations Lead ($1,500-2,500/month or $45K-70K/year)
-
-**Who hires:** Larger operations managing 50+ workers
-
-**What you do:**
-- Oversee dispatch team
-- Handle VIP client relationships
-- Process design and optimization
-- AI system training and oversight
-- Strategic operations planning
-
-**Requirements:**
-- 2+ years dispatcher experience
-- Leadership capability
-- Process thinking
-- Can manage remote teams
-
-**This is a career role.** People at this level often transition into full operations management.
-
-### Tier 4: US-Based Dispatcher ($35K-55K/year)
-
-**Who hires:** US companies needing US-based staff (for regulatory, client preference, or time zone reasons)
-
-**What you do:** Same as Tier 2-3 but with US employment benefits
-
-**Requirements:**
-- Based in United States
-- All Tier 2-3 skills
-
-**Pay difference:** US-based roles pay 3-5x international roles because:
-- Higher cost of living
-- US labor market pricing
-- Often include benefits (health insurance, 401k)
-
-## How to Actually Get Hired
-
-Most people apply to 50 jobs and hear nothing.
-
-Here's why: **You're applying to the wrong places.**
-
-### Where Remote Dispatcher Jobs Are NOT
-
-❌ Indeed, LinkedIn, Monster (too generic, too competitive)
-❌ Upwork, Fiverr (wrong type of gig work)
-❌ Remote.co, We Work Remotely (rarely have dispatcher roles)
-
-### Where They Actually Are
-
-✅ **Direct company outreach** (90% of jobs)
-✅ **Industry-specific job boards** (facility management, home services)
-✅ **Referrals from current dispatchers**
-✅ **Company career pages** (but you have to find the companies first)
-
-### The Strategy That Works
-
-**Step 1: Identify Target Companies**
-
-Google these searches:
-- "facility management company [state]"
-- "HVAC dispatch services"
-- "home services coordination"
-- "field service management company"
-
-You're looking for companies with:
-- 20-100+ field workers
-- Multi-state operations
-- Growth indicators (hiring, expansion news)
-
-Build a list of 50 companies.
-
-**Step 2: Find the Right Contact**
-
-For each company, find:
-- Operations Manager
-- Director of Operations
-- CEO (if small company)
-
-Use LinkedIn, company websites, or tools like Apollo.io or Hunter.io
-
-**Step 3: Send a Direct Email**
-
-Template that works:
-
-> **Subject:** Remote Dispatcher Inquiry — [Your Name]
->
-> Hi [Name],
->
-> I noticed [Company] operates dispatch for [service type] across [states/regions]. I'm interested in remote dispatcher roles coordinating field operations.
->
-> **Background:**
-> - Fluent English (written & verbal)
-> - [Any relevant experience, even if not dispatch]
-> - Available for US business hours
-> - Reliable home office setup
->
-> I'm organized, communicate clearly, and work well under pressure. Happy to complete a trial task or skills assessment.
->
-> Resume attached. Would you be open to a brief call?
->
-> Best,
-> [Your Name]
-> [Phone] | [Email] | [LinkedIn]
+Someone in a remote location (often international) coordinating field workers in another country (often US) using modern technology.
 
 **Why this works:**
-- Shows you understand their business
-- Demonstrates relevant capabilities
-- Offers to prove yourself (trial task)
-- Professional but not corporate-stiff
+- Operations happen over phone, email, SMS, and software
+- Physical presence isn't required
+- Time zones can be managed with flexible scheduling
+- Global talent pool for coordination skills
+
+## The Market Economics
+
+### Why Companies Hire Remote Operations Coordinators:
+
+**1. Cost Arbitrage**
+- US-based coordinator: $40-70K/year + benefits
+- International remote coordinator: Competitive local rates + growth opportunity
+- Savings enable faster scaling
+
+**2. 24/7 Operations**
+- Coordinate across multiple time zones
+- Handle overnight emergencies
+- Extend coverage without multiple shifts
+
+**3. Access to Global Talent**
+- Skilled coordinators exist worldwide
+- English fluency ≠ US location required
+- Larger talent pool = better candidates
 
-**Step 4: Follow Up**
+**4. Scalability**
+- Easier to scale remote teams than local hiring
+- Training can be standardized
+- AI tools make remote coordination more effective
 
-If no response in 5 days, send a short follow-up:
+### Why Workers Want These Roles:
+
+**1. Access to US Dollar Income**
+- Competitive wages in strong currency
+- Career growth opportunities
+- Financial stability
 
-> Hi [Name],
->
-> Following up on my dispatcher inquiry from last week. Still very interested if you have current or upcoming needs.
->
-> Happy to discuss how I can support your operations.
->
-> Best,
-> [Your Name]
+**2. True Remote Flexibility**
+- Work from anywhere with reliable internet
+- No commute
+- Flexible scheduling (within operational hours)
 
-**Step 5: Volume**
+**3. Skill Development**
+- Learn operations management
+- Experience with modern AI tools
+- Pathway to leadership roles
 
-Apply this process to 50 companies.
+**4. Career Progression**
+- Entry-level → Senior Coordinator → Operations Manager
+- Many coordinators transition to full operations leadership
+- Transferable skills across industries
 
-Expected results:
-- 30% will ignore you (that's fine)
-- 40% will say "not hiring now but keep in touch"
-- 20% will want to talk
-- 10% will offer interview/trial
+## The Market Size: How Big Is This Really?
 
-You need 5-10 conversations to get 1-2 offers.
+### Industry Analysis:
 
-## The Interview Process
+**Facility Management (US):**
+- Market size: $50B+ annually
+- Estimated coordination labor: $3-5B
+- Remote penetration: <10% (massive growth opportunity)
 
-Most dispatcher hiring is practical, not academic.
+**Home Services:**
+- Market size: $600B+ globally
+- Coordination-heavy segment: $100B+
+- Remote operations: Growing 50%+ YoY
 
-### Common Interview Formats
+**Healthcare Home Services:**
+- Market size: $350B+ (US only)
+- Coordination roles: 100,000+ positions
+- Remote adoption: Accelerating post-pandemic
 
-**1. Initial Screening (15-30 min)**
-- Basic fit check
-- Availability confirmation
-- Communication assessment
-- Why you're interested
+**Field Services (Telecom, Utilities):**
+- Market size: $400B+ globally
+- Operations coordination: Critical function
+- Remote operations: Industry standard
 
-**2. Skills Assessment**
-Common tasks:
-- Email writing (draft a message to a tech or client)
-- Scheduling scenario (assign 5 jobs to 3 techs based on constraints)
-- Problem-solving (tech canceled, client urgent — what do you do?)
+**Logistics & Last-Mile:**
+- Market size: $300B+ (US)
+- Dispatcher/coordinator roles: Hundreds of thousands
+- Remote work: Increasingly common
 
-**3. Trial Period**
-Many companies offer 1-2 week paid trials:
-- You work with the real team
-- Handle real jobs (with oversight)
-- They assess: speed, accuracy, communication, reliability
+**Conservative estimate: $50-80B in global coordination labor, with 10-20% transitioning to remote models by 2028.**
 
-**This is your best shot to prove yourself.** Perform well here and you're hired.
+That's a $5-15B remote operations economy emerging right now.
 
-### What They're Really Looking For
+## The Skill Revolution: What Makes Someone Succeed
 
-1. **Communication:** Do you write clearly? Speak professionally?
-2. **Reliability:** Will you show up every day?
-3. **Speed:** Can you handle the pace?
-4. **Judgment:** Do you escalate appropriately?
-5. **Coachability:** Can you take feedback and improve?
+### The Skills That Matter:
 
-They don't care about:
-- Where you went to school
-- What certificates you have
-- How good your resume looks
+**1. Communication Excellence**
+- Clear written English (essential)
+- Professional phone presence (increasingly AI-assisted)
+- Multi-stakeholder management
+- Conflict de-escalation
 
-They care about: **Can you do the job?**
+**2. Operational Thinking**
+- Pattern recognition (what works, what breaks)
+- Priority assessment (urgent vs. important)
+- Resource optimization (scheduling, routing)
+- Problem-solving under pressure
 
-## How to Stand Out
+**3. Technology Fluency**
+- Comfortable learning new software
+- Can navigate multiple systems simultaneously
+- Understands AI-assisted workflows
+- Adapts to changing tools
 
-### 1. Show, Don't Tell
+**4. Reliability & Consistency**
+- Shows up every day
+- Meets commitments
+- Handles stress professionally
+- Maintains quality standards
 
-Instead of "I'm organized" → Send a well-structured email with clear sections
+### What Doesn't Matter:
 
-Instead of "I handle pressure well" → Share a specific example of managing a chaotic situation
+❌ College degree (operations skill > credentials)
+❌ Specific industry experience (most companies train)
+❌ Location (truly remote, work from anywhere)
+❌ Age or background (merit-based)
 
-### 2. Demonstrate Tech Competency
+**This is one of the most meritocratic career paths in the modern economy.**
 
-In your application, mention:
-- Software you're comfortable with (Google Workspace, CRMs, chat tools)
-- Your internet speed (run a speed test, include results)
-- Your backup plan if internet goes down
+## The Career Progression Path
 
-### 3. Offer References
+### Stage 1: Entry-Level Operations Coordinator (Months 0-12)
 
-Even if you don't have dispatcher experience, offer references from:
-- Previous remote work
-- Customer service roles
-- Any job where you coordinated multiple people
+**What you do:**
+- Handle routine coordination tasks
+- Follow established processes
+- Learn systems and workflows
+- Build reliability and trust
 
-### 4. Follow Instructions Perfectly
+**Compensation range:** Competitive entry-level for location
+**Key focus:** Prove consistency and capability
 
-If the job posting says "include 'DISPATCHER' in subject line" → do it exactly
+### Stage 2: Senior Coordinator (Years 1-2)
 
-Companies use this to filter out people who don't read carefully.
+**What you do:**
+- Handle complex scenarios independently
+- Train newer coordinators
+- Optimize processes
+- Manage higher-value relationships
 
-### 5. Be Available (for Trial)
+**Compensation range:** Mid-level, performance bonuses
+**Key focus:** Demonstrate leadership and improvement
 
-If offered a trial, clear your schedule.
+### Stage 3: Operations Lead (Years 2-4)
 
-This is your audition. Treat it like your current full-time job even if it's only 1-2 weeks.
+**What you do:**
+- Oversee coordinator teams
+- Design and improve workflows
+- Handle strategic client relationships
+- Work with AI systems and tooling
 
-## Red Flags to Avoid
+**Compensation range:** Senior level, significant growth opportunity
+**Key focus:** Strategic thinking and team leadership
 
-Not all dispatcher jobs are created equal. Watch out for:
+### Stage 4: Operations Manager (Years 3-5+)
 
-❌ **"Pay per job" pricing with unclear volume**
-→ Could end up being $2/hour
+**What you do:**
+- Own operational strategy
+- Manage distributed teams
+- Drive business growth through ops excellence
+- Partner with C-suite on company direction
 
-❌ **No clear training program**
-→ You'll be thrown into chaos with no support
+**Compensation range:** Management tier, often six figures
+**Key focus:** Business impact and innovation
 
-❌ **Vague job description**
-→ Often means they don't know what they need
+**This isn't a dead-end job. It's a career ladder.**
 
-❌ **Upfront fees** (for software, training, equipment)
-→ Legitimate employers don't charge you to work
+## The AI Acceleration
+
+### Why Remote Operations Jobs Are Growing Faster Now:
 
-❌ **Too good to be true pay** ($3K/month for entry-level with no experience)
-→ Likely a scam
+**1. AI Makes Remote Coordination More Effective**
+- AI handles routine decisions
+- Coordinators focus on exceptions and relationships
+- Higher productivity = more value per coordinator
+
+**2. Companies Can Scale Faster**
+- AI + remote team = massive leverage
+- Operations scale without proportional cost increase
+- Competitive pressure drives adoption
+
+**3. Better Tools Enable Better Work**
+- Modern operations platforms are remote-first
+- Real-time visibility across distributed teams
+- Communication tools bridge geographic gaps
+
+**4. Proven Models Emerge**
+- Success stories demonstrate viability
+- Best practices are being documented
+- Training programs are maturing
+
+**The combination of AI + remote coordination is creating 10x leverage for operations teams.**
+
+## The Geographic Opportunity Map
+
+### Where These Jobs Are Concentrated:
+
+**High-growth regions for remote coordinators:**
 
-✅ **Good signs:**
-- Clear job description
-- Structured training mentioned
-- Realistic pay for experience level
-- Professional communication
-- Verifiable company presence
+**1. Middle East & North Africa**
+- English fluency high in many countries
+- Time zones align well with US East Coast
+- Strong work ethic and education systems
+- Growing tech-savvy populations
+
+**2. Eastern Europe**
+- Excellent English in many countries
+- European time zones cover US business hours
+- Strong operations management culture
+- Affordable cost of living vs. income
 
-## Career Progression
+**3. South Asia**
+- Large English-speaking populations
+- Time zone coverage for 24/7 operations
+- Strong customer service heritage
+- Massive talent pool
 
-**Month 0-3: Learning**
-- You're slow, make mistakes, ask lots of questions
-- Goal: Get competent at basics
+**4. Latin America**
+- Time zones overlap with US
+- Growing English proficiency
+- Cultural affinity with US operations
+- Rapidly improving tech infrastructure
 
-**Month 3-6: Competent**
-- You handle routine work independently
-- You understand the patterns
-- Goal: Increase speed and accuracy
+**5. Southeast Asia**
+- Emerging market for operations roles
+- English education improving
+- Tech-savvy young professionals
+- Cost-effective for early-stage careers
 
-**Month 6-12: Reliable**
-- You're trusted with more complex work
-- You might train newer dispatchers
-- Goal: Position for Tier 2 promotion
+### Why Geography Matters Less Every Year:
 
-**Year 2: Senior / Lead**
-- You're managing others or handling VIP clients
-- Pay increase to $1,000-1,500/month or more
-- Goal: Move toward operations management
+As tools improve and companies get better at remote operations:
+- Time zone becomes the main constraint (manageable)
+- Internet reliability becomes universal
+- Cultural and language barriers shrink
+- Truly global talent pools emerge
 
-**Year 3+: Operations Manager**
-- You're designing processes, not just executing them
-- Pay: $1,500-2,500/month (international) or $60K-90K (US-based)
-- This is a real career, not a stepping stone
+## How to Enter This Market
 
-## Why This Opportunity Exists
+### For Job Seekers:
 
-**The disconnect:**
-- Companies desperately need remote coordinators
-- Job seekers don't know these roles exist
-- No centralized hiring marketplace
+**1. Build Core Skills**
+- English communication (written & verbal)
+- Basic tech literacy (Google Workspace, CRMs)
+- Organizational systems (time management, multi-tasking)
+- Customer service mindset
 
-**Why companies hire internationally:**
-- Cost: $500-700/month vs. $3,500+/month for US-based
-- Talent: Many excellent coordinators outside US
-- Time zones: Can cover extended hours
-- Scalability: Easier to scale team
+**2. Demonstrate Capability**
+- Any customer-facing role counts
+- Volunteer coordination experience
+- Project management (even informal)
+- Evidence of reliability and follow-through
 
-**Why this benefits you:**
-- Access to US dollar income
-- Remote work (no commute, work from anywhere)
-- Career growth (can move up to management)
-- Skill development (operations, AI tools, process design)
+**3. Target Growing Industries**
+- Facility management companies
+- Home services platforms
+- Healthcare operations
+- Field service management
 
-## QANAT Is Hiring
+**4. Learn About AI-Assisted Operations**
+- Understand how AI is changing coordination work
+- Position yourself as someone who embraces technology
+- Show willingness to learn new systems
 
-We're actively hiring **Remote Dispatchers** for facility management operations.
+**5. Network in Operations Communities**
+- LinkedIn groups for operations professionals
+- Industry-specific forums
+- Remote work communities
+- Referrals are powerful in this space
 
-**Role:**
-- Coordinate techs across the US
-- Powered by AI tools (you'll be trained)
-- Work from anywhere (cover US business hours)
-- $500-700/month + performance bonuses
+### For Companies:
 
-**Requirements:**
-- Fluent English
-- Reliable internet
-- Available 40 hours/week during US daytime
-- Organized, detail-oriented, calm under pressure
-- No degree required
+**1. Recognize the Talent Opportunity**
+- Great coordinators exist globally
+- Remote doesn't mean lower quality
+- Build systems for remote-first operations
 
-**What we offer:**
-- Full training (2 weeks onboarding)
-- AI-powered tools (you're not doing manual phone calls)
-- Clear promotion path (6-12 months to senior role)
-- Remote-first culture
-- Direct support from operations leads
+**2. Invest in Training**
+- Good coordinators can be trained on your specifics
+- Document processes clearly
+- Provide structured onboarding
+- Continuous improvement culture
 
-**How to apply:**
-1. Send resume to **hr@qn8.app**
-2. Subject line: "Remote Dispatcher — [Your Name]"
-3. Include: 1-2 paragraphs on why you're interested and what makes you good at coordination work
+**3. Leverage AI Appropriately**
+- Use AI to augment coordinators, not replace them
+- Focus humans on judgment and relationships
+- Let AI handle routine decisions
 
-We review all applications within 5 business days.
+**4. Build Career Paths**
+- Show progression opportunities
+- Promote from within
+- Recognize and reward excellence
 
-[See full job description](/careers)
+## Why QANAT Cares About This Market
 
-## Other Companies Hiring
+We build AI operations infrastructure. That means working with **both sides** of this equation:
 
-*(As of Feb 2026, these companies are actively hiring remote dispatchers):*
+### For Operations Teams:
+- We build AI systems that make coordinators more effective
+- We design workflows that leverage remote talent
+- We create career growth opportunities (coordinator → AI supervisor → ops manager)
 
-- **ServiceTitan partners** (HVAC/plumbing companies using ServiceTitan software)
-- **Buildium property managers** (facility management for residential properties)
-- **Field service management companies** (search "field service software company careers")
+### For the Industry:
+- We're helping professionalize remote operations work
+- We're building training and best practices
+- We're creating pathways from anywhere to high-value careers
 
-Use the outreach strategy above to find and approach them.
+**We're hiring:** [See our current openings](/careers)
 
-## Conclusion
+We look for coordinators who want to work with cutting-edge AI systems and grow into operations leadership roles.
 
-Remote dispatcher jobs are real, growing, and accessible.
+## What's Next: The 2026-2028 Outlook
 
-You don't need:
-- A degree
-- Previous experience
-- To live in a specific country
+### Predictions:
 
-You DO need:
-- Strong English communication
-- Reliable internet and workspace
-- Ability to work US hours
-- Organizational skills and work ethic
+**2026:**
+- Remote operations roles grow 40%+ from 2025
+- AI-assisted coordination becomes industry standard
+- More companies build remote-first operations teams
 
-The market is here. Most people just don't know where to look.
+**2027:**
+- Major enterprises embrace remote operations at scale
+- Career paths formalize (certifications, training programs)
+- Compensation rises as demand outpaces supply
 
-Now you do.
+**2028:**
+- Remote operations is mainstream, not novel
+- AI + human collaboration is the default model
+- $10-15B+ in remote operations economy globally
+
+**The window is now.** Early movers (both job seekers and companies) will have advantages over those who wait.
+
+## Get Involved
+
+**If you're a company** looking to build AI-powered remote operations:
+- [Talk to us about infrastructure](/services)
+- Learn how the best companies are doing this
+- Get help designing systems that scale
+
+**If you're looking for operations career opportunities:**
+- [Check our careers page](/careers)
+- Learn about working with AI systems
+- Explore remote operations roles
+
+**If you're an investor or analyst** tracking this space:
+- [Contact us](/contact) for market insights
+- We're tracking this trend closely
+- Happy to share data and patterns
 
 ---
 
-**QANAT is hiring Remote Dispatchers for AI-powered facility management operations. Work from anywhere, earn US dollars, grow into operations management. [Apply now](/careers) or email hr@qn8.app with your resume.**`,
+**The remote operations economy is one of the biggest untold stories in the future of work. QANAT is building the AI infrastructure that powers it. [Learn more](/services) or [get in touch](/contact).**`,
   author: {
     name: 'Yousof Al-Ali',
     title: 'Founder & CEO, QANAT',
-    bio: 'Building AI-powered operations infrastructure. Scaled one company from 0 to $2.5M ARR in 18 months using AI dispatch systems.',
+    bio: 'Building AI-powered operations infrastructure. Former cybersecurity specialist turned AI operations architect.',
   },
   publishedAt: '2026-01-28',
   readingTime: 11,
   category: 'Operations & AI',
-  tags: ['Remote Work', 'Dispatcher Jobs', 'Careers', 'Hiring'],
+  tags: ['Remote Work', 'Operations', 'Careers', 'Market Analysis'],
   featured: false,
 };

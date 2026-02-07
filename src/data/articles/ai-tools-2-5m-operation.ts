@@ -1,461 +1,422 @@
 import type { Article } from './types';
 
 export const article: Article = {
-  slug: 'ai-tools-2-5m-operation',
-  title: 'The AI Tools I Use to Run a $2.5M Operation with 3 People',
-  metaTitle: 'AI Tools for Running $2.5M Operation — Real Stack | QANAT',
-  metaDescription: 'The exact AI tools, workflows, and systems I use to run a $2.5M facility management operation with just 3 people. No fluff, just the stack.',
-  excerpt: 'Most "AI productivity" posts are garbage. Here\'s my actual AI stack for running a $2.5M operation with 3 people — tools, costs, and workflows.',
-  content: `Everyone talks about AI productivity.
+  slug: 'ai-stack-decision-framework-operations',
+  title: 'The AI Stack Decision Framework: How to Choose Tools That Actually Scale Operations',
+  metaTitle: 'AI Stack Decision Framework for Operations — Strategic Guide | QANAT',
+  metaDescription: 'Choosing AI tools for operations isn\'t about features. It\'s about integration, reliability, and scale. Here\'s the framework that actually works.',
+  excerpt: 'Most "AI productivity" advice is garbage for real operations. Here\'s how to build an AI stack that scales from 10 to 1000 operations per day.',
+  content: `Everyone talks about "AI productivity stacks."
 
-Most of it is cosplay. "I use ChatGPT for emails!" Cool. That saves you 10 minutes per day.
+Most of it is cosplay.
 
-Here's what real AI leverage looks like: **Running a $2.5M operation with 3 full-time people.**
+"I use ChatGPT for emails!" Cool. That saves you 10 minutes per day.
 
-This is my actual AI stack. Not aspirational. Not theoretical. What I actually use every day.
+Real AI leverage looks different: **scaling operations 5-10x without proportional hiring**.
 
-## The Operation
+Here's the framework for choosing AI tools that actually matter.
 
-Before we get into tools, here's what we're running:
+## The Stack Categories That Matter
 
-**Company:** Facility management dispatch
-**Revenue:** $2.5M ARR
-**Team:** 3 full-time (me + 2 senior operators)
-**Job volume:** 400+ work orders per day
-**Technicians managed:** 50+ across 8 states
-**Clients:** 30+ property management companies
+When building AI operations infrastructure, there are 6 categories of tools you need to think about:
 
-**Traditional model for this scale:** 15-20 people minimum
+### 1. Core Decision Intelligence
+The AI that makes operational decisions (routing, prioritization, scheduling)
 
-**Our model:** 3 people + AI infrastructure
+### 2. Communication Automation
+Systems that handle stakeholder communication at scale
 
-Let's break down the stack.
+### 3. Integration & Orchestration
+Tools that connect AI with your existing systems
 
-## Category 1: Core Operations AI
+### 4. Analytics & Observability
+How you monitor AI performance and business metrics
 
-### Tool: Claude Opus 4 (Anthropic API)
+### 5. Knowledge Management
+How you document processes and train AI systems
 
-**What it does:** Primary decision-making engine for dispatch operations
+### 6. Human Oversight
+Interfaces that let humans supervise and improve AI
 
-**How we use it:**
-- Routes 85% of incoming work orders to techs
-- Handles escalation decisions
-- Drafts client communications
-- Maintains operational context across 8-hour shifts
+Most companies optimize Category 1 (the AI model) and ignore the other 5.
 
-**Workflow:**
-1. Work order comes in (email, SMS, web form, API)
-2. Gets normalized into standard format
-3. Claude analyzes and suggests tech assignment
-4. If confidence >85% → auto-assign
-5. If confidence <85% → flag for human review
+**That's why they fail.**
 
-**Cost:** ~$850/month for ~12,000 API calls
-**ROI:** Replaces 5-6 junior dispatchers (~$25K/month saved)
+## Decision Framework: How to Evaluate Each Category
 
-**Why Claude over GPT:**
-- Better long-context reasoning (critical for shift-long awareness)
-- Less hallucination on edge cases
-- More reliable structured output
+### Category 1: Core Decision Intelligence
 
-**Alternative:** GPT-5 for speed-critical tasks (simple confirmations)
+**The question:** What AI model(s) should power your operations?
 
-### Tool: Custom Dispatch System (Next.js + PostgreSQL + Redis)
+**What most people do:** "Let's use ChatGPT!"
 
-**What it does:** The brain that orchestrates everything
+**What you should ask:**
 
-**Tech stack:**
-- Frontend: Next.js 14 (App Router)
-- Backend: Next.js API routes + tRPC
-- Database: PostgreSQL (Supabase)
-- Cache: Redis (Upstash)
-- Hosting: Vercel
+**A) How complex are your decisions?**
+- Simple routing: Smaller models work fine
+- Complex judgment: Need frontier models (Claude Opus 4, GPT-5)
+- High-stakes accuracy: Test multiple models, deploy best performer
 
-**Key features:**
-- Real-time job tracking
-- AI decision review interface
-- Tech availability management
-- Client portal
-- Performance analytics
+**B) How much context matters?**
+- Single-turn decisions: Any model works
+- Multi-hour context needed: Claude Opus 4, Mistral Large
+- Full-day awareness required: Custom context management system
 
-**Cost:** ~$400/month (Vercel Pro + Supabase + Upstash + misc)
-**Development cost:** ~$80K (one-time, built over 8 weeks)
+**C) What's your volume?**
+- <100 decisions/day: API models (Claude, GPT)
+- 100-500/day: Cost becomes significant, consider optimization
+- 500+ /day: Consider self-hosted open source (Llama 4, DeepSeek V3)
 
-**Why custom:** Off-the-shelf dispatch software doesn't integrate well with AI. We needed control.
+**D) What's your accuracy requirement?**
+- 80-85% accuracy: Most open source models
+- 90-95% accuracy: Claude, GPT-5, or fine-tuned models
+- 95-99% accuracy: Fine-tuned + human review for low-confidence
 
-## Category 2: Communication Automation
+**The right answer varies by use case.** Test in production before committing.
 
-### Tool: Twilio (SMS + Voice)
+### Category 2: Communication Automation
 
-**What it does:** Automated tech communication
+**The question:** How do you automate stakeholder communication without feeling robotic?
 
-**How we use it:**
-- Send job assignments to techs via SMS
-- Tech replies "ACCEPT" or "DECLINE"
-- Automated status update reminders
-- Emergency escalation calls (using Twilio Voice + AI voice agent)
+**What most people do:** Manual communication or basic email templates
 
-**Example flow:**
-- [AI assigns job to tech]
-- → Twilio sends SMS: "New job: HVAC repair at 123 Main St. ETA 2PM. Reply ACCEPT or DECLINE"
-- → Tech replies: "ACCEPT"
-- → System logs acceptance, updates CRM, notifies property manager
-- → 30 min before job: reminder SMS sent automatically
-- → After job: "Reply DONE when complete"
-- → Tech replies: "DONE"
-- → System triggers invoice generation
+**What you should ask:**
 
-**Cost:** ~$300/month (~6,000 SMS + occasional voice calls)
-**Time saved:** ~15 hours/week vs. manual coordination
+**A) What channels matter?**
+- Email: Transactional email services (Resend, Postmark, SendGrid)
+- SMS: Twilio, AWS SNS, or similar
+- Voice: AI voice systems (ElevenLabs, Deepgram, custom)
+- Chat: Slack, WhatsApp, in-app messaging
 
-### Tool: Resend (Transactional Email)
+**Build for the channels your stakeholders actually use.** Not what's technically easiest.
 
-**What it does:** All automated email communication
+**B) How personalized does it need to be?**
+- Notifications: Templates work fine
+- Updates: AI-generated but formulaic
+- Relationship communication: AI-assisted, human-reviewed
+- High-stakes: Always human-written
 
-**How we use it:**
-- Property manager notifications
-- Daily summary reports
-- Invoice delivery
-- Escalation alerts
+**Match automation level to relationship value.**
 
-**Why Resend over SendGrid:** Better developer experience, great React email templates, solid deliverability
+**C) What's your volume?**
+- <50 messages/day: Email + SMS APIs directly
+- 50-200/day: Add workflow automation (n8n, Zapier, Make)
+- 200+ /day: Custom communication orchestration layer
 
-**Cost:** ~$20/month
-**Volume:** ~8,000 emails/month
+**D) How do you handle responses?**
+- Inbound messages need routing logic
+- AI can triage and categorize
+- Complex queries escalate to humans
+- Track everything for context
 
-### Tool: ElevenLabs (Voice AI)
+**Communication isn't just outbound. Design for two-way interaction.**
 
-**What it does:** Generate voice messages for phone calls
+### Category 3: Integration & Orchestration
 
-**How we use it:**
-- Emergency escalation calls (AI voice explains situation to on-call tech)
-- Voicemail follow-ups
-- Voice status updates for clients who prefer calls over email
+**The question:** How do you connect AI with your existing systems?
 
-**Example:**
-When no tech accepts an emergency job within 15 minutes:
-→ System calls top 3 available techs
-→ AI voice: "Emergency HVAC job at [property]. Client willing to pay 1.5x rate. Press 1 to accept."
-→ First tech to press 1 gets the job
+**What most people do:** Zapier for everything
 
-**Cost:** ~$80/month
-**Success rate:** 60% acceptance on emergency escalations (vs. 20% via SMS)
+**What you should ask:**
 
-## Category 3: Data & Analytics
+**A) How many systems need integration?**
+- 1-3 systems: Direct API integrations
+- 4-8 systems: Workflow automation tool (n8n recommended for cost)
+- 8+ systems: Custom orchestration layer
 
-### Tool: Metabase (Self-Hosted)
+**B) How reliable do integrations need to be?**
+- Best-effort: Webhook-based automation
+- Mission-critical: Custom integration with retry logic, monitoring, fallbacks
+- Financial/compliance: Transactional consistency, audit logging
 
-**What it does:** Business intelligence and reporting
+**C) How much data are you moving?**
+- Low volume: Real-time webhooks
+- Medium volume: Batch processing (hourly, daily)
+- High volume: Event-driven architecture with queues
 
-**Dashboards we run:**
-- Daily ops summary (jobs completed, SLA compliance, revenue)
-- Tech performance leaderboard
-- Client satisfaction trends
-- Bottleneck analysis
+**D) How do you handle errors?**
+- APIs go down. Credentials expire. Rate limits hit.
+- Your system needs: retry logic, error logging, alerting, graceful degradation
 
-**Why Metabase:** Free (self-hosted), connects to PostgreSQL, powerful but simple
+**Integration is where generic platforms fail.** This is infrastructure work.
 
-**Cost:** $0 (we self-host on a $12/month VPS)
-**Time saved:** ~5 hours/week vs. manual Excel reports
+### Category 4: Analytics & Observability
 
-### Tool: Posthog (Product Analytics)
+**The question:** How do you know if your AI is working?
 
-**What it does:** Track how our AI decisions perform
+**What most people do:** "It seems fine" (no metrics)
 
-**What we measure:**
-- AI decision accuracy over time
-- Human override patterns
-- Feature usage by operators
-- Error rates and edge cases
+**What you should ask:**
 
-**Why Posthog:** Open source, great for product analytics, generous free tier
+**A) What metrics matter?**
+- **AI performance:** Decision accuracy, confidence scores, human override rate
+- **Business impact:** Response time, throughput, SLA compliance, cost per decision
+- **System health:** API latency, error rates, uptime
 
-**Cost:** $0 (under free tier limits)
+**If you're not measuring, you're not improving.**
 
-## Category 4: Process Automation
+**B) How often do you need visibility?**
+- Real-time: Dashboards for active operations (Grafana, Metabase, custom)
+- Daily: Summary reports (automated, delivered via email/Slack)
+- Weekly: Deep analysis (data warehouse queries, trends, patterns)
 
-### Tool: n8n (Self-Hosted Workflow Automation)
+**C) Who needs access?**
+- Operators: Real-time dashboards
+- Managers: Daily summaries and KPIs
+- Engineers: System health metrics and error logs
+- Leadership: Business impact metrics
 
-**What it does:** Glue between systems
+**D) What's your BI/analytics infrastructure?**
+- None: Start with Metabase (free, self-hosted)
+- Basic: Metabase, Superset, or similar
+- Advanced: Snowflake + Looker/Tableau
 
-**Key workflows:**
-1. **Invoice generation:** Job marked complete → extract details from CRM → generate PDF invoice → send via email → log in accounting system
-2. **Weekly reports:** Every Monday 8AM → pull last week's data → generate summary → email to clients
-3. **Tech onboarding:** New tech added → create accounts in all systems → send welcome packet → schedule orientation
-4. **Failed payment recovery:** Invoice unpaid >30 days → automated follow-up sequence (email, SMS, phone)
+**Observability isn't optional.** Without it, you can't tune AI performance.
 
-**Why n8n over Zapier:** Self-hosted = no limits, way cheaper, more powerful
+### Category 5: Knowledge Management
 
-**Cost:** ~$12/month (VPS hosting)
-**Workflows automated:** 25+ workflows
-**Time saved:** ~20 hours/week
+**The question:** How do you document processes and train AI?
 
-### Tool: GitHub Actions (CI/CD)
+**What most people do:** Knowledge lives in people's heads
 
-**What it does:** Automate deployments and testing
+**What you should ask:**
 
-**How we use it:**
-- Auto-deploy to production on main branch push
-- Run tests on every PR
-- Weekly dependency updates
-- Automated database backups
+**A) Where do you store operational knowledge?**
+- Process docs: Notion, Confluence, Google Docs
+- Decision rules: Code, config files, or documentation
+- Edge cases: Incident logs, runbooks
+- Training data: Databases, labeled datasets
 
-**Cost:** $0 (free tier for private repos)
+**B) How do you keep it updated?**
+- Manual updates: High-value docs (quarterly review)
+- Automated: AI generates documentation from code/decisions
+- Crowdsourced: Team contributes as they encounter edge cases
 
-## Category 5: Knowledge & Documentation
+**C) How does AI access knowledge?**
+- Embedded in prompts (for small, stable knowledge)
+- RAG (retrieval-augmented generation) for large knowledge bases
+- Fine-tuning for deeply specialized domains
 
-### Tool: Notion (Documentation)
+**D) How do you train new team members?**
+- Written documentation
+- Video walkthroughs
+- Shadowing experienced operators
+- AI-assisted onboarding (AI explains how systems work)
 
-**What it does:** Central knowledge base
+**Your AI is only as good as the knowledge you give it.**
 
-**What we document:**
-- Operations playbooks
-- Escalation procedures
-- Client-specific requirements
-- Vendor contact info
-- Training materials
+### Category 6: Human Oversight
 
-**Why Notion:** Easy to use, great search, embed capabilities
+**The question:** How do humans supervise and improve AI?
 
-**Cost:** $10/month (Plus plan)
+**What most people do:** No oversight interface (just hoping AI works)
 
-### Tool: Claude (via API for Documentation)
+**What you should ask:**
 
-**What it does:** Auto-generate documentation from code and conversations
+**A) What needs human review?**
+- All AI decisions (early deployment)
+- Low-confidence decisions only (mature deployment)
+- Random sampling (quality assurance)
+- Exception cases (escalations)
 
-**How we use it:**
-Every time we solve a complex operational issue:
-→ Log the conversation/decision
-→ Feed to Claude: "Generate a playbook entry for this scenario"
-→ Review and add to Notion
+**B) How do humans provide feedback?**
+- Approve/reject buttons
+- Override with explanation
+- Rating scales (decision quality)
+- Detailed annotations for training data
 
-**Example:** Tech cancels 2 hours before emergency job with no backup available
-→ Document the escalation process
-→ Now codified: "Offer 2x rate to nearby techs, if no acceptance within 15 min, escalate to regional manager"
+**C) What's the UX?**
+- Real-time queue (decisions waiting for review)
+- Historical log (past decisions, searchable)
+- Performance dashboards (AI accuracy over time)
+- Override interface (human takes control)
 
-**Cost:** Included in general Claude API usage
+**D) How does feedback improve AI?**
+- Short-term: Prompt tuning based on patterns
+- Medium-term: Fine-tuning on corrected decisions
+- Long-term: Process redesign based on recurring issues
 
-## Category 6: Customer-Facing AI
+**Human oversight isn't a nice-to-have. It's core infrastructure.**
 
-### Tool: Intercom + Custom AI Bot
+## The Cost Equation That Actually Matters
 
-**What it does:** Handle client questions
+Most people optimize for tool costs. That's the wrong metric.
 
-**How we use it:**
-- Property managers ask questions via chat
-- AI bot answers routine questions (job status, tech ETA, billing info)
-- Complex questions escalate to human
+**What matters: Total cost of operations**
 
-**Resolution rate:** ~70% of questions handled by AI
-**Average response time:** <30 seconds (vs. 2-4 hours previously)
+### Example Comparison:
 
-**Cost:** ~$150/month (Intercom + GPT-4 API for bot)
+**Scenario A: Cheap tools**
+- Free/low-cost AI models
+- Generic automation platforms
+- No observability
+- Minimal oversight
+- **Tool cost: $500/month**
+- **Hidden costs:** 10% error rate, 20 hours/week firefighting, slow response times
+- **Real cost: $500 tools + $10K/month in operational inefficiency = $10.5K/month**
 
-## Category 7: Financial Operations
+**Scenario B: Right tools**
+- Best-fit AI models (could be cheaper or more expensive)
+- Custom integrations where needed
+- Proper observability
+- Human oversight infrastructure
+- **Tool cost: $2,000/month**
+- **Operational excellence:** 1% error rate, 2 hours/week oversight, fast response times
+- **Real cost: $2K tools + $1K/month overhead = $3K/month**
 
-### Tool: Stripe (Payments + Billing)
+**Scenario B costs 71% less despite "higher" tool costs.**
 
-**What it does:** Payment processing and subscription management
+**Optimize for total operational cost, not tool pricing.**
 
-**How we integrate it:**
-- Auto-invoice generation after job completion
-- Subscription billing for monthly clients
-- Automated payment retries
-- Dunning management
+## Common Stack Patterns by Scale
 
-**Cost:** 2.9% + $0.30 per transaction
-**Why Stripe:** Best developer experience, reliable, handles edge cases well
+### Small Operations (10-50 decisions/day)
 
-### Tool: QuickBooks Online + API Integration
+**Core AI:** Claude/GPT API
+**Communication:** Email API + SMS API directly
+**Integration:** Zapier or Make
+**Analytics:** Google Sheets or Metabase
+**Knowledge:** Notion
+**Oversight:** Custom simple dashboard or spreadsheet
 
-**What it does:** Accounting and bookkeeping
+**Total cost: $200-800/month**
 
-**How we automate it:**
-- Every invoice generated → synced to QuickBooks
-- Every payment received → recorded automatically
-- Monthly reconciliation mostly automated
+### Medium Operations (50-200 decisions/day)
 
-**Cost:** ~$70/month (QuickBooks + integration maintenance)
-**Time saved:** ~8 hours/week vs. manual bookkeeping
+**Core AI:** Claude Opus 4 or GPT-5 API
+**Communication:** Transactional email + Twilio SMS + voice
+**Integration:** n8n (self-hosted) or custom
+**Analytics:** Metabase (self-hosted)
+**Knowledge:** Notion + structured docs
+**Oversight:** Custom web app
 
-## Category 8: Team Collaboration
+**Total cost: $1,000-3,000/month**
 
-### Tool: Slack
+### Large Operations (200-1000+ decisions/day)
 
-**What it does:** Team communication + alert hub
+**Core AI:** Mix of API + self-hosted open source
+**Communication:** Custom orchestration layer
+**Integration:** Custom integration platform
+**Analytics:** Data warehouse + BI tool
+**Knowledge:** Comprehensive knowledge base + RAG
+**Oversight:** Full-featured operations platform
 
-**How we use it:**
-- Channel per major client
-- AI system posts alerts (urgent jobs, SLA risks, errors)
-- Integrations with all our systems
+**Total cost: $3,000-10,000/month**
 
-**Key integrations:**
-- GitHub (deployment notifications)
-- Sentry (error alerts)
-- Metabase (daily metrics)
-- Custom webhooks from dispatch system
+**The pattern: As scale increases, custom infrastructure becomes more cost-effective than generic tools.**
 
-**Cost:** $0 (free plan, 3 people)
+## The Build vs. Buy Decision
 
-### Tool: Linear (Project Management)
+**Buy generic tools when:**
+- Category isn't core to your operations
+- Integration is straightforward
+- Your use case is standard
+- Volume is low
 
-**What it does:** Track improvements and bugs
+**Build custom when:**
+- Category is mission-critical
+- Your workflows are unique
+- Generic tools don't fit
+- Scale makes custom more economical
 
-**How we use it:**
-- Operators report bugs/issues
-- I prioritize and fix
-- Track operational improvements
+**Most successful operations use a mix: buy generic for support functions, build custom for core operations.**
 
-**Why Linear over Jira:** Faster, cleaner, built for speed
+## Red Flags in Tool Selection
 
-**Cost:** $0 (free for small teams)
+### 🚩 "No-code AI agents"
+- Fine for demos, breaks on complexity
+- Real operations need real engineering
 
-## The Full Stack Cost Breakdown
+### 🚩 "All-in-one AI platform"
+- Jack of all trades, master of none
+- Vendor lock-in
+- Can't optimize individual components
 
-| Category | Tools | Monthly Cost |
-|----------|-------|--------------|
-| Core AI | Claude API, GPT-5 API | ~$900 |
-| Custom Systems | Vercel, Supabase, Redis | ~$400 |
-| Communication | Twilio, Resend, ElevenLabs | ~$400 |
-| Automation | n8n VPS, GitHub Actions | ~$12 |
-| Analytics | Metabase VPS, Posthog | ~$12 |
-| Documentation | Notion | ~$10 |
-| Customer Support | Intercom + AI | ~$150 |
-| Financial | QuickBooks | ~$70 |
-| Team | Slack, Linear | ~$0 |
-| **Total** | | **~$1,954/month** |
+### 🚩 "Enterprise AI solution" (but no API docs)
+- Sales-driven, not product-driven
+- Painful to integrate
+- Expensive and slow
 
-**For context:**
-- Payroll (3 people): ~$22K/month
-- Traditional ops team (15 people): ~$75K/month
-- **Savings: ~$53K/month**
+### 🚩 "Works out of the box"
+- Operations are never "out of the box"
+- Customization will be painful
+- Hidden costs in adaptation
 
-The AI stack pays for itself 27x over.
+### 🚩 "We use the latest models"
+- Model != solution
+- Integration and infrastructure matter more
+- Chasing trends instead of solving problems
 
-## What We Don't Use (And Why)
+## Green Flags in Tool Selection
 
-**❌ Generic AI Agent Platforms**
-Why: Too rigid, can't customize for our complex workflows
+### ✅ "API-first design"
+- Built for developers
+- Easy integration
+- Flexible customization
 
-**❌ Pre-built Dispatch Software**
-Why: Doesn't integrate well with AI, too many constraints
+### ✅ "Used in production by companies like yours"
+- Proven at scale
+- Battle-tested
+- Real case studies (not marketing fluff)
 
-**❌ Zapier**
-Why: Too expensive at scale, n8n does everything for $12/month
+### ✅ "Self-hostable option"
+- You control deployment
+- No vendor lock-in
+- Can optimize costs at scale
 
-**❌ ChatGPT Plus**
-Why: API access is cheaper and more powerful for our use cases
+### ✅ "Transparent pricing"
+- No "contact us for pricing"
+- Predictable costs
+- No surprise fees
 
-**❌ Monday.com / ClickUp**
-Why: Overkill for 3 people, Linear is faster
+### ✅ "Strong monitoring/debugging tools"
+- Built for production
+- You can diagnose issues
+- Logging and observability included
 
-## The Workflow: A Day in the Life
+## The QANAT Approach
 
-**6:00 AM (Automated):**
-- System checks overnight jobs
-- AI generates morning summary
-- Posted to Slack
+We don't recommend a standard stack. We design custom AI infrastructure for each client's operations.
 
-**8:00 AM - 5:00 PM:**
-- Work orders flow in continuously
-- AI routes 85% automatically
-- I review flagged decisions (~30 min/day)
-- Operators handle exceptions and client calls (~3-4 hours/day)
-- AI handles all routine communication
+**Our process:**
 
-**5:00 PM (Automated):**
-- AI generates end-of-day summary
-- Incomplete jobs flagged for follow-up
-- Performance metrics calculated
+**1. Audit current operations**
+- What's working? What's broken?
+- Where are bottlenecks?
+- What tools exist already?
 
-**Weekly (Automated):**
-- Client reports generated and sent
-- Tech performance reviews compiled
-- System health check
+**2. Design target architecture**
+- Right AI models for your decisions
+- Communication systems for your stakeholders
+- Integration with YOUR systems
+- Observability for your metrics
+- Human oversight for your team
 
-**My time allocation:**
-- Strategic work: 60%
-- Exception handling: 20%
-- System improvements: 15%
-- Client relationships: 5%
+**3. Build incrementally**
+- Start with highest-value workflow
+- Deploy with oversight
+- Measure performance
+- Expand gradually
 
-## Lessons Learned
+**4. Optimize continuously**
+- Tune AI based on feedback
+- Improve integrations
+- Reduce costs as we learn
+- Scale infrastructure as you grow
 
-### 1. Don't Buy Generic, Build Custom
-
-Off-the-shelf AI tools are demos. Real operations need custom systems.
-
-We spent $80K building our dispatch system. Best investment we made.
-
-### 2. AI Needs Human Oversight
-
-We review ~15% of AI decisions. That oversight is critical.
-
-Full autonomy sounds great but breaks in production.
-
-### 3. Automate Communication First
-
-Communication (calls, texts, emails) is the biggest time sink.
-
-Automating this 90% gives you back 20-30 hours/week.
-
-### 4. Log Everything
-
-Every decision, every error, every override.
-
-You'll need this data to improve the AI and prove ROI.
-
-### 5. Stack Costs Add Up
-
-$2K/month in tools sounds like a lot.
-
-But it's replacing $50K+/month in labor.
-
-Don't penny-pinch on tools that 10x your leverage.
-
-## How to Build Your Own AI Operations Stack
-
-**Phase 1: Start with Communication**
-- Automate routine messages (Twilio + Resend)
-- Build templates for common scenarios
-- Expected savings: 10-15 hours/week
-
-**Phase 2: Add Decision AI**
-- Pick your highest-volume decision
-- Build AI prompts with Claude/GPT
-- Start with human-in-loop approval
-- Expected savings: 20-30 hours/week
-
-**Phase 3: Connect Systems**
-- Use n8n or similar to automate workflows
-- Eliminate manual data entry
-- Expected savings: 5-10 hours/week
-
-**Phase 4: Build Analytics**
-- Set up Metabase or similar
-- Track what matters
-- Use data to improve AI
-
-**Phase 5: Scale**
-- Fine-tune AI on your data
-- Expand automation to more workflows
-- Keep human oversight for high-stakes decisions
-
-**Timeline:** 3-6 months from zero to production-ready
-
-Or [hire us](/services) and we'll build it in 8-12 weeks.
+[See what we've built](/services) or [talk to us](/contact) about your operations.
 
 ---
 
-**QANAT builds AI-powered operations infrastructure for companies that want to scale without linear hiring. We've deployed the stack described here for 12+ companies. [Learn more](/services) or [contact us](/contact) to build yours.**`,
+**Choosing the right AI stack isn't about features. It's about building infrastructure that scales with your operations. QANAT designs and builds custom AI operations systems for companies that need production-ready solutions. [Learn more](/services).**`,
   author: {
     name: 'Yousof Al-Ali',
     title: 'Founder & CEO, QANAT',
-    bio: 'Building AI-powered operations infrastructure. Scaled one company from 0 to $2.5M ARR in 18 months using AI dispatch systems.',
+    bio: 'Building AI-powered operations infrastructure. Former cybersecurity specialist turned AI operations architect.',
   },
   publishedAt: '2026-01-29',
-  readingTime: 11,
+  readingTime: 12,
   category: 'AI Tools',
-  tags: ['AI Tools', 'Operations', 'Tech Stack', 'Productivity'],
+  tags: ['AI Tools', 'Operations', 'Tech Stack', 'Strategy'],
   featured: false,
 };
