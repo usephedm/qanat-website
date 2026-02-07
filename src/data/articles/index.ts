@@ -8,6 +8,7 @@ import { article as openSourceAi2026Models } from './open-source-ai-2026-models'
 import { article as buildAiDispatchSystem } from './build-ai-dispatch-system';
 import { article as aiTools25mOperation } from './ai-tools-2-5m-operation';
 import { article as remoteDispatcherJobs2026 } from './remote-dispatcher-jobs-2026';
+import { article as enterpriseAiAutomationFails } from './enterprise-ai-automation-fails';
 
 export const articles = [
   claudeOpus4ChangesEverything,
@@ -20,6 +21,7 @@ export const articles = [
   buildAiDispatchSystem,
   aiTools25mOperation,
   remoteDispatcherJobs2026,
+  enterpriseAiAutomationFails,
 ];
 
 // Article categories
