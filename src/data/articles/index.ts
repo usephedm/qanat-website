@@ -22,7 +22,22 @@ export const articles = [
   remoteDispatcherJobs2026,
 ];
 
+// Article categories
+export const ARTICLE_CATEGORIES = [
+  'AI Models',
+  'AI Tools',
+  'AI News',
+  'Operations & AI',
+  'Analysis',
+] as const;
+
 // Helper functions for the blog
+export const getAllArticles = () => {
+  return articles.sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+};
+
 export const getFeaturedArticle = () => {
   return articles.find(article => article.featured);
 };
@@ -45,6 +60,31 @@ export const getRecentArticles = (limit: number = 5) => {
     .slice(0, limit);
 };
 
+export const getRelatedArticles = (currentSlug: string, limit: number = 3) => {
+  const currentArticle = getArticleBySlug(currentSlug);
+  if (!currentArticle) return [];
+
+  // Find articles in the same category, exclude current
+  const sameCategory = articles
+    .filter(
+      article =>
+        article.slug !== currentSlug && article.category === currentArticle.category
+    )
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+
+  // If not enough in same category, add recent articles
+  if (sameCategory.length < limit) {
+    const recent = articles
+      .filter(article => article.slug !== currentSlug && article.category !== currentArticle.category)
+      .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+      .slice(0, limit - sameCategory.length);
+    return [...sameCategory, ...recent].slice(0, limit);
+  }
+
+  return sameCategory.slice(0, limit);
+};
+
 // Export types
-export type Article = typeof articles[0];
+import type { Article as ArticleType } from './types';
+export type Article = ArticleType;
 export type ArticleCategory = Article['category'];

@@ -9,9 +9,8 @@ import { LogoIcon } from '@/components/ui/Logo';
 const menuItems = [
   { title: 'Home', href: '/' },
   { title: 'Services', href: '/services' },
+  { title: 'Intelligence', href: '/intelligence' },
   { title: 'Case Studies', href: '/case-studies' },
-  { title: 'Playbook', href: '/playbook' },
-  { title: 'About', href: '/about' },
   { title: 'Careers', href: '/careers' },
   { title: 'Contact', href: '/contact' },
 ];
