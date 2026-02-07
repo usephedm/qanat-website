@@ -7,9 +7,9 @@ import type { ArticleCategory } from '@/data/articles/types';
 import { generateBreadcrumbSchema } from '@/lib/metadata';
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     category: string;
-  };
+  }>;
 }
 
 function slugToCategory(slug: string): ArticleCategory | null {
@@ -34,7 +34,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const category = slugToCategory(params.category);
+  const { category: categorySlug } = await params;
+  const category = slugToCategory(categorySlug);
 
   if (!category) {
     return { title: 'Category Not Found' };
@@ -44,13 +45,14 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     title: `${category} — AI Operations Intelligence`,
     description: `In-depth articles about ${category.toLowerCase()}. Analysis, insights, and real-world testing from the QANAT team.`,
     alternates: {
-      canonical: `/intelligence/category/${params.category}`,
+      canonical: `/intelligence/category/${categorySlug}`,
     },
   };
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const category = slugToCategory(params.category);
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { category: categorySlug } = await params;
+  const category = slugToCategory(categorySlug);
 
   if (!category) {
     notFound();
@@ -61,7 +63,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const breadcrumbs = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Intelligence', url: '/intelligence' },
-    { name: category, url: `/intelligence/category/${params.category}` },
+    { name: category, url: `/intelligence/category/${categorySlug}` },
   ]);
 
   return (

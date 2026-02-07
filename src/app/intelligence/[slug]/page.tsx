@@ -8,9 +8,9 @@ import { generateBreadcrumbSchema } from '@/lib/metadata';
 import { SITE } from '@/lib/constants';
 
 interface ArticlePageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -21,7 +21,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
-  const article = getArticleBySlug(params.slug);
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     return { title: 'Article Not Found' };
@@ -52,8 +53,9 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   };
 }
 
-export default function ArticlePage({ params }: ArticlePageProps) {
-  const article = getArticleBySlug(params.slug);
+export default async function ArticlePage({ params }: ArticlePageProps) {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     notFound();
@@ -192,18 +194,16 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                 </svg>
                 LinkedIn
               </a>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(articleUrl);
-                  alert('Link copied to clipboard!');
-                }}
+              <a
+                href={articleUrl}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium bg-surface border border-border hover:border-accent/30 transition-colors"
+                title="Copy this link"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 Copy Link
-              </button>
+              </a>
             </div>
           </header>
 

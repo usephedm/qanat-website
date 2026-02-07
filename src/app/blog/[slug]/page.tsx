@@ -1,12 +1,13 @@
 import { redirect } from 'next/navigation';
 
 interface BlogSlugPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 // Redirect /blog/[slug] to /intelligence/[slug]
-export default function BlogSlugPage({ params }: BlogSlugPageProps) {
-  redirect(`/intelligence/${params.slug}`);
+export default async function BlogSlugPage({ params }: BlogSlugPageProps) {
+  const { slug } = await params;
+  redirect(`/intelligence/${slug}`);
 }
